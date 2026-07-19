@@ -75,7 +75,7 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle>Connexion à l'espace</CardTitle>
+                <CardTitle>Connexion à l&apos;espace</CardTitle>
                 <CardDescription>Accédez à vos opportunités et votre tableau de bord.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -96,7 +96,7 @@ export default function Home() {
             <Card className="bg-[var(--color-primary)] text-white border-none">
               <CardHeader>
                 <CardTitle className="text-white">Opportunité Spéciale</CardTitle>
-                <CardDescription className="text-gray-300">Boostez votre carrière dès aujourd'hui.</CardDescription>
+                <CardDescription className="text-gray-300">Boostez votre carrière dès aujourd&apos;hui.</CardDescription>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-200">

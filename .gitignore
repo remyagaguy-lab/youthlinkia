@@ -42,3 +42,8 @@ next-env.d.ts
 
 # Sentry Config File
 .env.sentry-build-plugin
+workers/cron-jobs/.dev.vars  
+check-logs.ts  
+seed-fake.ts  
+test-admin-signup.ts  
+test-db.ts  
