@@ -6,15 +6,7 @@ import { Button } from '@/components/ui/Button'
 
 export const revalidate = 3600 // Revalidate cache every hour (ISR)
 
-export async function generateStaticParams() {
-  const supabase = await createClient()
-  const { data: structures } = await supabase
-    .from('structures')
-    .select('slug')
-    .eq('statut', 'publiee')
 
-  return structures?.map((s) => ({ slug: s.slug })) || []
-}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
