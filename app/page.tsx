@@ -142,7 +142,7 @@ export default async function Home() {
              <div className="absolute inset-0 pointer-events-none z-30">
                
                {/* Bourse (Top Left) */}
-               <div className="absolute top-[5%] left-[5%] sm:-left-[5%] bg-white px-4 py-3 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3 animate-float pointer-events-auto transition-transform hover:scale-105 hover:border-[var(--color-primary)] cursor-pointer" style={{ animationDelay: '0s' }}>
+               <div className="absolute top-[12%] left-[10%] sm:left-[2%] bg-white px-4 py-3 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3 animate-float pointer-events-auto transition-transform hover:scale-105 hover:border-[var(--color-primary)] cursor-pointer" style={{ animationDelay: '0s' }}>
                  <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-[var(--color-primary)]">
                    <GraduationCap className="w-5 h-5" />
                  </div>
@@ -153,7 +153,7 @@ export default async function Home() {
                </div>
 
                {/* Emploi (Top Right) */}
-               <div className="absolute top-[20%] right-[0%] sm:-right-[10%] bg-white px-4 py-3 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3 animate-float pointer-events-auto transition-transform hover:scale-105 hover:border-[var(--color-cta)] cursor-pointer" style={{ animationDelay: '1s' }}>
+               <div className="absolute top-[25%] right-[5%] sm:-right-[2%] bg-white px-4 py-3 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3 animate-float pointer-events-auto transition-transform hover:scale-105 hover:border-[var(--color-cta)] cursor-pointer" style={{ animationDelay: '1s' }}>
                  <div className="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center text-[var(--color-cta)]">
                    <Briefcase className="w-5 h-5" />
                  </div>
@@ -164,7 +164,7 @@ export default async function Home() {
                </div>
 
                {/* Entrepreneuriat (Bottom Left) */}
-               <div className="absolute bottom-[20%] left-[0%] sm:-left-[10%] bg-white px-4 py-3 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3 animate-float pointer-events-auto transition-transform hover:scale-105 hover:border-green-500 cursor-pointer" style={{ animationDelay: '2s' }}>
+               <div className="absolute bottom-[25%] left-[5%] sm:-left-[2%] bg-white px-4 py-3 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3 animate-float pointer-events-auto transition-transform hover:scale-105 hover:border-green-500 cursor-pointer" style={{ animationDelay: '2s' }}>
                  <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-600">
                    <Lightbulb className="w-5 h-5" />
                  </div>
@@ -175,7 +175,7 @@ export default async function Home() {
                </div>
 
                {/* Mentorat (Bottom Right) */}
-               <div className="absolute bottom-[5%] right-[5%] sm:right-[0%] bg-[var(--color-primary)] px-4 py-3 rounded-2xl shadow-xl border border-primary-800 flex items-center gap-3 animate-float pointer-events-auto transition-transform hover:scale-105 cursor-pointer" style={{ animationDelay: '1.5s' }}>
+               <div className="absolute bottom-[12%] right-[10%] sm:right-[5%] bg-[var(--color-primary)] px-4 py-3 rounded-2xl shadow-xl border border-primary-800 flex items-center gap-3 animate-float pointer-events-auto transition-transform hover:scale-105 cursor-pointer" style={{ animationDelay: '1.5s' }}>
                  <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white backdrop-blur-sm">
                    <Users className="w-5 h-5" />
                  </div>
