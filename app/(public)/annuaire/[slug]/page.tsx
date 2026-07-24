@@ -134,16 +134,16 @@ export default async function StructureDetailPage({
             {/* Actions Primaires */}
             <div className="flex flex-col gap-3 pb-2 z-10 w-full md:w-auto">
               {(structure.lien || structure.site_web_officiel) && (
-                <Button asChild size="lg" className="w-full md:w-auto bg-primary-600 hover:bg-primary-700 shadow-lg shadow-primary-500/30 text-white font-bold h-12">
+                <Button asChild size="lg" className="w-full md:w-auto bg-[var(--color-primary)] hover:opacity-90 shadow-lg shadow-black/10 text-white font-bold h-12">
                   <a href={structure.lien || structure.site_web_officiel} target="_blank" rel="noopener noreferrer">
                     <Globe className="mr-2 h-5 w-5" /> Visiter le Site
                   </a>
                 </Button>
               )}
               {(structure.contact || structure.contact_email) && (
-                <Button asChild variant="outline" size="lg" className="w-full md:w-auto bg-white hover:bg-slate-50 text-slate-700 border-slate-200 font-bold h-12">
+                <Button asChild variant="outline" size="lg" className="w-full md:w-auto bg-white hover:bg-slate-50 text-[var(--color-primary)] border-[var(--color-primary)] font-bold h-12">
                   <a href={`mailto:${structure.contact || structure.contact_email}`}>
-                    <Mail className="mr-2 h-5 w-5 text-primary-500" /> Contacter
+                    <Mail className="mr-2 h-5 w-5 text-[var(--color-primary)]" /> Contacter
                   </a>
                 </Button>
               )}
