@@ -114,7 +114,7 @@ export default async function Home() {
                  </div>
                  <div>
                    <div className="text-sm font-extrabold text-gray-800">Bourses d'études</div>
-                   <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wide">Orientation 360°</div>
+                   <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wide">Orientation scolaire</div>
                  </div>
                </div>
 
@@ -125,7 +125,7 @@ export default async function Home() {
                  </div>
                  <div>
                    <div className="text-sm font-extrabold text-gray-800">Emplois & Stages</div>
-                   <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wide">Tremplin de carrière</div>
+                   <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wide">Orientation professionnelle</div>
                  </div>
                </div>
 
@@ -135,8 +135,8 @@ export default async function Home() {
                    <Lightbulb className="w-5 h-5" />
                  </div>
                  <div>
-                   <div className="text-sm font-extrabold text-gray-800">Entrepreneuriat</div>
-                   <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wide">Labo du business</div>
+                   <div className="text-sm font-extrabold text-gray-800">Incubation de projet & Financement</div>
+                   <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wide">Orientation entrepreneuriale</div>
                  </div>
                </div>
 
