@@ -121,38 +121,18 @@ export default async function Home() {
                {/* Middle Ring */}
                <div className="absolute inset-4 rounded-full border-2 border-[var(--color-primary)]/10 shadow-[inset_0_0_30px_rgba(0,0,0,0.05)] bg-white/30 backdrop-blur-md"></div>
                
-               {/* Inner Dial (The Compass Face) */}
-               <div className="absolute inset-8 rounded-full bg-gradient-to-br from-white to-gray-50 shadow-2xl border border-white flex items-center justify-center">
+               {/* Inner Dial (The Compass Face with 3D Image) */}
+               <div className="absolute inset-4 rounded-full shadow-2xl flex items-center justify-center overflow-hidden bg-transparent">
                  
-                 {/* Beautiful SVG Compass Needle */}
-                 <div className="relative w-3/4 h-3/4 flex items-center justify-center transition-transform duration-1000 ease-out hover:rotate-12">
-                   <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-xl" style={{ transform: 'rotate(45deg)' }}>
-                     <defs>
-                       <linearGradient id="needle-red" x1="0%" y1="0%" x2="100%" y2="100%">
-                         <stop offset="0%" stopColor="var(--color-cta)" />
-                         <stop offset="100%" stopColor="#b91c1c" />
-                       </linearGradient>
-                       <linearGradient id="needle-gray" x1="0%" y1="0%" x2="100%" y2="100%">
-                         <stop offset="0%" stopColor="#f3f4f6" />
-                         <stop offset="100%" stopColor="#9ca3af" />
-                       </linearGradient>
-                     </defs>
-                     
-                     {/* North Point */}
-                     <path d="M50 5 L62 50 L50 55 L38 50 Z" fill="url(#needle-red)" />
-                     {/* North Point Highlight */}
-                     <path d="M50 5 L62 50 L50 55 Z" fill="rgba(255,255,255,0.3)" />
-                     
-                     {/* South Point */}
-                     <path d="M50 95 L62 50 L50 45 L38 50 Z" fill="url(#needle-gray)" />
-                     {/* South Point Shadow */}
-                     <path d="M50 95 L62 50 L50 45 Z" fill="rgba(0,0,0,0.15)" />
-                     
-                     {/* Center Pin Outer */}
-                     <circle cx="50" cy="50" r="10" fill="#1f2937" />
-                     {/* Center Pin Inner */}
-                     <circle cx="50" cy="50" r="4" fill="#ffffff" />
-                   </svg>
+                 {/* Realistic 3D Compass Image */}
+                 <div className="relative w-full h-full flex items-center justify-center transition-transform duration-1000 ease-out hover:scale-105 hover:rotate-3">
+                    <Image 
+                      src="/illustrations/compass-3d.png" 
+                      alt="Boussole Intelligente 3D" 
+                      fill 
+                      className="object-contain drop-shadow-2xl scale-[1.2]" 
+                      priority 
+                    />
                  </div>
                  
                </div>
