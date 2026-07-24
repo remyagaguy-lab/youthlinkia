@@ -53,59 +53,76 @@ export default async function Home() {
 
       <main className="container mx-auto px-4 py-8 max-w-6xl space-y-16">
         {/* Hero Section - Official YouthLinkIA Positioning */}
-        <section className="space-y-6 text-center max-w-4xl mx-auto pt-6 pb-2">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-50 text-[var(--color-primary)] text-xs font-semibold border border-primary-100 shadow-xs">
-            <Compass className="w-4 h-4 text-[var(--color-cta)]" />
-            <span>Orientation 360° • Employabilité • Entrepreneuriat</span>
-          </div>
-
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold text-[var(--color-primary)] leading-tight tracking-tight">
-            La boussole intelligente qui connecte vos ambitions <span className="text-[var(--color-cta)]">aux opportunités.</span>
-          </h1>
-
-          <p className="text-lg md:text-xl text-[var(--color-text-secondary)] max-w-3xl mx-auto leading-relaxed">
-            YouthLinkIA accompagne les jeunes talents dans leur transition de l'école vers le monde professionnel. Accédez librement aux bourses d'études, offres d'emploi, stages et programmes d'accompagnement au Togo et en Afrique.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-3">
-            <Button variant="cta" size="lg" className="w-full sm:w-auto px-8 gap-2 font-bold shadow-md" asChild>
-              <Link href="/opportunites">
-                <Compass className="w-5 h-5" />
-                <span>Explorer les opportunités</span>
-              </Link>
-            </Button>
-            
-            <Button variant="outline" size="lg" className="w-full sm:w-auto px-6 border-gray-300 text-gray-700 hover:bg-gray-50" asChild>
-              <Link href="/inscription/lyceen_etudiant">
-                <span>Créer mon profil membre</span>
-              </Link>
-            </Button>
-          </div>
-
-          {/* Quick Category Quick Links Container */}
-          <div className="pt-4 max-w-3xl mx-auto">
-            <div className="p-3 bg-white/80 backdrop-blur-xs rounded-2xl border border-gray-200/80 shadow-xs flex flex-wrap justify-center items-center gap-2">
-              <span className="text-xs font-bold text-gray-400 uppercase tracking-wider mr-1 hidden sm:inline">Accès rapide:</span>
-              {[
-                { label: "Bourses d'études", type: "bourse", icon: GraduationCap },
-                { label: "Emploi & Volontariat", type: "emploi", icon: Briefcase },
-                { label: "Stages & Alternance", type: "stage", icon: Sprout },
-                { label: "Formations & Filières", type: "formation", icon: BookOpen },
-                { label: "Concours & Challenges", type: "concours", icon: Trophy }
-              ].map((cat) => {
-                const IconComponent = cat.icon;
-                return (
-                  <Link
-                    key={cat.type}
-                    href={`/opportunites?type=${cat.type}`}
-                    className="px-3 py-1.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-semibold text-gray-700 hover:bg-[var(--color-primary)] hover:text-white hover:border-[var(--color-primary)] transition-all shadow-2xs flex items-center gap-1.5"
-                  >
-                    <IconComponent className="w-3.5 h-3.5 text-[var(--color-primary)] group-hover:text-white" />
-                    <span>{cat.label}</span>
-                  </Link>
-                );
-              })}
+        <section className="grid md:grid-cols-2 gap-8 items-center pt-8 pb-12 max-w-6xl mx-auto">
+          {/* Left Column: Content */}
+          <div className="space-y-6 text-left">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-50 text-[var(--color-primary)] text-xs font-semibold border border-primary-100 shadow-xs">
+              <Compass className="w-4 h-4 text-[var(--color-cta)]" />
+              <span>Orientation 360° • Employabilité • Entrepreneuriat</span>
             </div>
+
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold text-[var(--color-primary)] leading-tight tracking-tight">
+              La boussole intelligente qui connecte vos ambitions <span className="text-[var(--color-cta)]">aux opportunités.</span>
+            </h1>
+
+            <p className="text-lg md:text-xl text-[var(--color-text-secondary)] leading-relaxed">
+              YouthLinkIA accompagne les jeunes talents dans leur transition de l'école vers le monde professionnel. Accédez librement aux bourses d'études, offres d'emploi, stages et programmes d'accompagnement au Togo et en Afrique.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-start items-center pt-3">
+              <Button variant="cta" size="lg" className="w-full sm:w-auto px-8 gap-2 font-bold shadow-md hover:-translate-y-1 transition-transform" asChild>
+                <Link href="/opportunites">
+                  <Compass className="w-5 h-5" />
+                  <span>Explorer les opportunités</span>
+                </Link>
+              </Button>
+              
+              <Button variant="outline" size="lg" className="w-full sm:w-auto px-6 border-gray-300 text-gray-700 hover:bg-gray-50" asChild>
+                <Link href="/inscription/lyceen_etudiant">
+                  <span>Créer mon profil membre</span>
+                </Link>
+              </Button>
+            </div>
+
+            {/* Quick Category Quick Links Container */}
+            <div className="pt-4">
+              <div className="p-3 bg-white/80 backdrop-blur-xs rounded-2xl border border-gray-200/80 shadow-xs flex flex-wrap justify-start items-center gap-2">
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider mr-1 hidden sm:inline">Accès rapide:</span>
+                {[
+                  { label: "Bourses", type: "bourse", icon: GraduationCap },
+                  { label: "Emploi", type: "emploi", icon: Briefcase },
+                  { label: "Stages", type: "stage", icon: Sprout },
+                  { label: "Formations", type: "formation", icon: BookOpen },
+                  { label: "Concours", type: "concours", icon: Trophy }
+                ].map((cat) => {
+                  const IconComponent = cat.icon;
+                  return (
+                    <Link
+                      key={cat.type}
+                      href={`/opportunites?type=${cat.type}`}
+                      className="px-3 py-1.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-semibold text-gray-700 hover:bg-[var(--color-primary)] hover:text-white hover:border-[var(--color-primary)] transition-all shadow-2xs flex items-center gap-1.5 group"
+                    >
+                      <IconComponent className="w-3.5 h-3.5 text-[var(--color-primary)] group-hover:text-white" />
+                      <span>{cat.label}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: 3D Illustration Dynamic */}
+          <div className="relative w-full aspect-square md:aspect-auto md:h-[500px] flex items-center justify-center">
+             <div className="absolute inset-0 bg-gradient-to-tr from-primary-50/50 to-[var(--color-cta)]/10 rounded-full blur-3xl transform rotate-12 scale-105"></div>
+             <div className="relative w-full h-full animate-float">
+                <Image 
+                  src="/illustrations/hero-3d.png" 
+                  alt="YouthLinkIA Solution 3D Illustration" 
+                  fill 
+                  className="object-contain drop-shadow-2xl" 
+                  priority 
+                />
+             </div>
           </div>
         </section>
 
