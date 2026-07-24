@@ -61,14 +61,15 @@ Assure-toi que le JSON est valide.`
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'google/gemini-2.5-flash-pro', // Fast, good context window, cheap
+        model: 'openai/gpt-4o-mini',
         messages: [{ role: 'user', content: prompt }],
         temperature: 0.3,
       }),
     })
 
     if (!response.ok) {
-      throw new Error(`OpenRouter API Error: ${response.status} ${response.statusText}`)
+      const errorText = await response.text()
+      throw new Error(`OpenRouter API Error: ${response.status} ${response.statusText} - ${errorText}`)
     }
 
     const data = await response.json()
@@ -92,7 +93,6 @@ async function run() {
     .from('structures')
     .select('id, nom, type')
     .is('description_detaillee', null) // Only process ones that don't have details
-    .limit(3) // Process in small batches for safety during testing
 
   if (error) {
     console.error('❌ Erreur de récupération des structures:', error)
