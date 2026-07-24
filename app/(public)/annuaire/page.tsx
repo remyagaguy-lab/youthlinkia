@@ -116,8 +116,8 @@ export default async function AnnuairePage({
                   <div className="flex items-start gap-5 mb-5">
                     {(() => {
                       let finalLogoUrl = structure.logo_url;
-                      if (!finalLogoUrl && (structure.site_web_officiel || structure.lien)) {
-                        const website = structure.site_web_officiel || structure.lien;
+                      const website = structure.site_web_officiel || structure.lien;
+                      if (!finalLogoUrl && website) {
                         try {
                           const url = new URL(website.startsWith('http') ? website : `https://${website}`);
                           finalLogoUrl = `https://logo.clearbit.com/${url.hostname}`;

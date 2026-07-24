@@ -93,8 +93,8 @@ export default async function StructureDetailPage({
             <div className="relative w-40 h-40 rounded-2xl bg-white shadow-xl border-4 border-white flex-shrink-0 z-10 overflow-hidden group">
               {(() => {
                 let finalLogoUrl = structure.logo_url;
-                if (!finalLogoUrl && (structure.site_web_officiel || structure.lien)) {
-                  const website = structure.site_web_officiel || structure.lien;
+                const website = structure.site_web_officiel || structure.lien;
+                if (!finalLogoUrl && website) {
                   try {
                     const url = new URL(website.startsWith('http') ? website : `https://${website}`);
                     finalLogoUrl = `https://logo.clearbit.com/${url.hostname}`;
