@@ -3,6 +3,7 @@ import { Card } from '@/components/ui/Card'
 import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
 import { Search, MapPin, Building2 } from 'lucide-react'
+import { LogoImage } from '@/components/ui/LogoImage'
 
 export const metadata = {
   title: 'Annuaire des Partenaires | YouthLinkIA',
@@ -113,15 +114,25 @@ export default async function AnnuairePage({
               <Card className="h-full bg-white border border-gray-100/80 rounded-2xl overflow-hidden cursor-pointer flex flex-col transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:-translate-y-1.5 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-4">
                 <div className="p-7 flex flex-col h-full relative">
                   <div className="flex items-start gap-5 mb-5">
-                    {structure.logo_url ? (
-                      <div className="w-16 h-16 rounded-xl bg-white shadow-sm border border-gray-100 p-2 flex-shrink-0 flex items-center justify-center overflow-hidden">
-                        <img src={structure.logo_url} alt={structure.nom} className="w-full h-full object-contain" />
-                      </div>
-                    ) : (
-                      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-cta)] flex items-center justify-center text-white font-bold text-2xl flex-shrink-0 shadow-sm shadow-[var(--color-primary)]/20">
-                        {structure.nom.charAt(0).toUpperCase()}
-                      </div>
-                    )}
+                    {(() => {
+                      let finalLogoUrl = structure.logo_url;
+                      if (!finalLogoUrl && (structure.site_web_officiel || structure.lien)) {
+                        const website = structure.site_web_officiel || structure.lien;
+                        try {
+                          const url = new URL(website.startsWith('http') ? website : `https://${website}`);
+                          finalLogoUrl = `https://logo.clearbit.com/${url.hostname}`;
+                        } catch (e) {}
+                      }
+                      return (
+                        <LogoImage 
+                          src={finalLogoUrl} 
+                          alt={structure.nom} 
+                          fallbackLetter={structure.nom} 
+                          containerClassName="w-16 h-16 rounded-xl shadow-sm border border-gray-100 p-2 text-2xl"
+                          className="w-full h-full"
+                        />
+                      );
+                    })()}
                     <div className="flex-1 min-w-0">
                       <span className="inline-block px-3 py-1 mb-2.5 text-[10px] font-bold uppercase tracking-wider text-[var(--color-primary)] bg-[var(--color-primary)]/10 rounded-full">
                         {structure.type.replace(/_/g, ' ')}

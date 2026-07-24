@@ -16,6 +16,7 @@ import {
   Building,
   Image as ImageIcon
 } from 'lucide-react'
+import { LogoImage } from '@/components/ui/LogoImage'
 
 export const revalidate = 3600 // Revalidate cache every hour (ISR)
 
@@ -85,18 +86,26 @@ export default async function StructureDetailPage({
         {/* 2. EN-TÊTE PROFIL (Overlap sur le Hero) */}
         <div className="relative -mt-24 mb-12 flex flex-col md:flex-row gap-6 md:items-end">
           {/* Logo */}
-          <div className="relative w-40 h-40 rounded-2xl bg-white p-2 shadow-xl border-4 border-white flex-shrink-0 z-10 overflow-hidden group">
-            {structure.logo_url ? (
-              <img 
-                src={structure.logo_url} 
-                alt={structure.nom} 
-                className="w-full h-full object-contain rounded-xl transition-transform duration-300 group-hover:scale-110" 
-              />
-            ) : (
-              <div className="w-full h-full rounded-xl bg-gradient-to-br from-primary-500 to-cta-500 flex items-center justify-center text-white font-bold text-6xl">
-                {structure.nom.charAt(0)}
-              </div>
-            )}
+          <div className="relative w-40 h-40 rounded-2xl bg-white shadow-xl border-4 border-white flex-shrink-0 z-10 overflow-hidden group">
+            {(() => {
+              let finalLogoUrl = structure.logo_url;
+              if (!finalLogoUrl && (structure.site_web_officiel || structure.lien)) {
+                const website = structure.site_web_officiel || structure.lien;
+                try {
+                  const url = new URL(website.startsWith('http') ? website : `https://${website}`);
+                  finalLogoUrl = `https://logo.clearbit.com/${url.hostname}`;
+                } catch (e) {}
+              }
+              return (
+                <LogoImage 
+                  src={finalLogoUrl} 
+                  alt={structure.nom} 
+                  fallbackLetter={structure.nom} 
+                  containerClassName="w-full h-full rounded-xl text-6xl"
+                  className="w-full h-full transition-transform duration-300 group-hover:scale-110"
+                />
+              );
+            })()}
           </div>
 
           {/* Titre & Info */}
