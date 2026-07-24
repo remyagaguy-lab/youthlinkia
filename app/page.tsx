@@ -115,13 +115,13 @@ export default async function Home() {
              {/* Central Compass */}
              <div className="relative w-64 h-64 sm:w-72 sm:h-72 z-20 flex items-center justify-center animate-float">
                  
-                 {/* Realistic 3D Compass Image (sans cadre) */}
-                 <div className="relative w-full h-full rounded-full flex items-center justify-center transition-transform duration-1000 ease-out hover:scale-105 hover:rotate-3 overflow-hidden shadow-2xl">
+                 {/* Realistic 3D Compass Image (totalement sans cadre) */}
+                 <div className="relative w-full h-full flex items-center justify-center transition-transform duration-1000 ease-out hover:scale-105 hover:rotate-3">
                     <Image 
                       src="/illustrations/compass-3d.png" 
                       alt="Boussole Intelligente 3D" 
                       fill 
-                      className="object-contain scale-[1.15]" 
+                      className="object-contain scale-[1.15] mix-blend-multiply" 
                       priority 
                     />
                  </div>
