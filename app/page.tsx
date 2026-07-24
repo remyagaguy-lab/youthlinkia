@@ -56,7 +56,7 @@ export default async function Home() {
         <section className="grid md:grid-cols-2 gap-8 items-center pt-8 pb-12 max-w-6xl mx-auto">
           {/* Left Column: Content */}
           <div className="space-y-6 text-left">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold text-[var(--color-primary)] leading-tight tracking-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-heading font-extrabold text-[var(--color-primary)] leading-tight tracking-tight">
               La boussole intelligente qui connecte vos ambitions <span className="text-[var(--color-cta)]">aux opportunités.</span>
             </h1>
 
