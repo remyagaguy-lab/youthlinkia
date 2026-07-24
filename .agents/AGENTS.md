@@ -15,3 +15,11 @@ Always refer to these skills when planning architecture, writing code, or review
 - **INTERDICTION STRICTE DE MODIFIER LA CHARTE VISUELLE** : L'identité visuelle de YouthLinkIA (couleurs de marque `--color-primary`, `--color-cta`, thèmes, logos, typographies officielles) est définitive.
 - Vous ne devez sous aucun prétexte altérer, modifier ou remplacer la charte visuelle et les couleurs officielles de YouthLinkia. Tout ajustement UX/UI doit s'intégrer dans le strict respect de cette charte établie.
 
+## RÈGLE STRICTE & PERMANENTE - CHARTE ÉDITORIALE & COPYWRITING YOUTHLINKIA
+- **INTERDICTION STRICTE DE COPIER LE COPYWRITING OU LE TEXTE D'AUTRES SITES** (Setondji ou autre).
+- **RESPECT ABSOLU DE LA CHARTE ÉDITORIALE** : Tous les textes, slogans, descriptions et contenus rédigés doivent découler EXCLUSIVEMENT de `Charte_éditoriale_YouthLinkIA.md` et `Présentation YouthLinkia.md`.
+- Slogan officiel : *"YouthLinkIA... La boussole qui connecte les talents aux opportunités."*
+- Piliers éditoriaux : *Le Tremplin de Carrière*, *Le Labo du Business*, *La TalentUp Room*, *L'Orientation 360°*.
+- Ton de voix : Inspirant, motivateur, pédagogue, pragmatique et inclusif.
+
+

@@ -6,12 +6,12 @@ import { BottomNavigation } from "@/components/ui/BottomNavigation";
 import { OpportuniteCard } from "@/components/ui/OpportuniteCard";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
-import { ArrowRight, Sparkles, Search, Compass, BookOpen, Building2, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Compass, Building2, Briefcase, Lightbulb, Users, CheckCircle2, Rocket, GraduationCap } from "lucide-react";
 
 export default async function Home() {
   const supabase = await createClient();
 
-  // Fetch 6 published opportunities for guest preview
+  // Fetch 6 published opportunities for public preview
   const { data: opportunites } = await supabase
     .from('opportunites')
     .select('id, titre, type, pays_diffusion, deadline, slug, created_at')
@@ -45,33 +45,33 @@ export default async function Home() {
               <Link href="/connexion">Se connecter</Link>
             </Button>
             <Button variant="cta" size="sm" asChild>
-              <Link href="/inscription/lyceen_etudiant">Rejoindre gratuitement</Link>
+              <Link href="/inscription/lyceen_etudiant">Rejoindre l'écosystème</Link>
             </Button>
           </div>
         </div>
       </header>
 
       <main className="container mx-auto px-4 py-8 max-w-6xl space-y-16">
-        {/* Hero Section */}
-        <section className="space-y-6 text-center max-w-4xl mx-auto pt-8 pb-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary-50 text-[var(--color-primary)] text-xs font-semibold border border-primary-100 shadow-xs">
-            <Sparkles className="w-4 h-4 text-[var(--color-cta)]" />
-            <span>Accès libre & gratuit — Inscription uniquement pour sauvegarder ou postuler</span>
+        {/* Hero Section - Official YouthLinkIA Positioning */}
+        <section className="space-y-6 text-center max-w-4xl mx-auto pt-6 pb-2">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-50 text-[var(--color-primary)] text-xs font-semibold border border-primary-100 shadow-xs">
+            <Compass className="w-4 h-4 text-[var(--color-cta)]" />
+            <span>Orientation 360° • Employabilité • Entrepreneuriat</span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold text-[var(--color-primary)] leading-tight tracking-tight">
-            Les meilleures opportunités pour la jeunesse, <span className="text-[var(--color-cta)]">triées à la main.</span>
+            La boussole intelligente qui connecte vos ambitions <span className="text-[var(--color-cta)]">aux opportunités.</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto leading-relaxed">
-            Trouvez les bourses d'études, offres d'emploi, stages et concours au Bénin et en Afrique francophone. Découvrez notre annuaire et nos guides d'orientation librement.
+          <p className="text-lg md:text-xl text-[var(--color-text-secondary)] max-w-3xl mx-auto leading-relaxed">
+            YouthLinkIA accompagne les jeunes talents dans leur transition de l'école vers le monde professionnel. Accédez librement aux bourses d'études, offres d'emploi, stages et programmes d'accompagnement au Togo et en Afrique.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-2">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-3">
             <Button variant="cta" size="lg" className="w-full sm:w-auto px-8 gap-2 font-bold shadow-md" asChild>
               <Link href="/opportunites">
-                <Search className="w-5 h-5" />
-                <span>Explorer toutes les annonces</span>
+                <Compass className="w-5 h-5" />
+                <span>Explorer les opportunités</span>
               </Link>
             </Button>
             
@@ -82,14 +82,14 @@ export default async function Home() {
             </Button>
           </div>
 
-          {/* Quick Categories Pills */}
+          {/* Quick Category Filters */}
           <div className="flex flex-wrap justify-center gap-2 pt-6">
             {[
               { label: "🎓 Bourses d'études", type: "bourse" },
-              { label: "💼 Emplois", type: "emploi" },
-              { label: "🌱 Stages", type: "stage" },
-              { label: "📚 Formations", type: "formation" },
-              { label: "🏆 Concours", type: "concours" }
+              { label: "💼 Emploi & Volontariat", type: "emploi" },
+              { label: "🌱 Stages & Alternance", type: "stage" },
+              { label: "📚 Formations & Filières", type: "formation" },
+              { label: "🏆 Concours & Challenges", type: "concours" }
             ].map((cat) => (
               <Link
                 key={cat.type}
@@ -102,23 +102,23 @@ export default async function Home() {
           </div>
         </section>
 
-        {/* Live Opportunities Grid */}
+        {/* Live Opportunities Showcase */}
         <section className="space-y-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-200 pb-4">
             <div>
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[var(--color-cta)] mb-1">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                <span>Opportunités récentes</span>
+                <span>Dernières annonces vérifiées</span>
               </div>
               <h2 className="text-2xl md:text-3xl font-heading font-bold text-[var(--color-primary)]">
-                Dernières annonces vérifiées
+                Opportunités récentes en ligne
               </h2>
             </div>
             <Link
               href="/opportunites"
               className="inline-flex items-center gap-2 font-semibold text-sm text-[var(--color-primary)] hover:text-[var(--color-cta)] transition-colors"
             >
-              <span>Voir tout l'annuaire ({opportunites?.length || 0}+ récents)</span>
+              <span>Consulter tout le catalogue ({opportunites?.length || 0}+ annonces)</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -134,13 +134,87 @@ export default async function Home() {
               <Compass className="w-12 h-12 text-gray-300 mx-auto mb-3" />
               <p className="font-medium">Aucune opportunité récente disponible pour le moment.</p>
               <Button variant="outline" className="mt-4" asChild>
-                <Link href="/opportunites">Voir le catalogue d'opportunités</Link>
+                <Link href="/opportunites">Explorer toutes les offres</Link>
               </Button>
             </div>
           )}
         </section>
 
-        {/* Partner & Value Proposition Cards */}
+        {/* 3 Pillars of Expertise - Charte Éditoriale YouthLinkIA */}
+        <section className="space-y-8 pt-4">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <h2 className="text-2xl md:text-3xl font-heading font-bold text-[var(--color-primary)]">
+              Un accompagnement adapté à chaque étape de votre parcours
+            </h2>
+            <p className="text-sm text-gray-600">
+              De l'orientation académique à l'insertion professionnelle et la création d'entreprise, YouthLinkIA structure votre réussite.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Pôle Tremplin de Carrière */}
+            <Card className="border border-gray-200 bg-white hover:border-primary-300 transition-all shadow-xs">
+              <CardHeader className="space-y-3">
+                <div className="w-12 h-12 rounded-xl bg-primary-50 text-[var(--color-primary)] flex items-center justify-center">
+                  <Briefcase className="w-6 h-6" />
+                </div>
+                <CardTitle className="text-lg font-bold text-[var(--color-primary)]">
+                  Le Tremplin de Carrière
+                </CardTitle>
+                <CardDescription className="text-sm text-gray-600 leading-relaxed">
+                  L'accélérateur d'employabilité pour les jeunes talents. Découvrez votre voie, développez vos compétences et accédez directement aux offres d'emploi, de stage et de volontariat.
+                </CardDescription>
+              </CardHeader>
+              <CardFooter className="pt-0">
+                <Link href="/insertion-professionnelle" className="text-xs font-bold text-[var(--color-primary)] hover:text-[var(--color-cta)] flex items-center gap-1">
+                  En savoir plus <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </CardFooter>
+            </Card>
+
+            {/* Pôle Labo du Business */}
+            <Card className="border border-gray-200 bg-white hover:border-primary-300 transition-all shadow-xs">
+              <CardHeader className="space-y-3">
+                <div className="w-12 h-12 rounded-xl bg-primary-50 text-[var(--color-primary)] flex items-center justify-center">
+                  <Lightbulb className="w-6 h-6 text-[var(--color-cta)]" />
+                </div>
+                <CardTitle className="text-lg font-bold text-[var(--color-primary)]">
+                  Le Labo du Business
+                </CardTitle>
+                <CardDescription className="text-sm text-gray-600 leading-relaxed">
+                  Le laboratoire de l'entrepreneuriat pour structurer votre projet. De l'idée au lancement, accédez aux incubateurs, programmes de financement et concours d'innovation.
+                </CardDescription>
+              </CardHeader>
+              <CardFooter className="pt-0">
+                <Link href="/entrepreneuriat" className="text-xs font-bold text-[var(--color-primary)] hover:text-[var(--color-cta)] flex items-center gap-1">
+                  En savoir plus <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </CardFooter>
+            </Card>
+
+            {/* La TalentUp Room */}
+            <Card className="border border-gray-200 bg-white hover:border-primary-300 transition-all shadow-xs">
+              <CardHeader className="space-y-3">
+                <div className="w-12 h-12 rounded-xl bg-primary-50 text-[var(--color-primary)] flex items-center justify-center">
+                  <Users className="w-6 h-6" />
+                </div>
+                <CardTitle className="text-lg font-bold text-[var(--color-primary)]">
+                  La TalentUp Room
+                </CardTitle>
+                <CardDescription className="text-sm text-gray-600 leading-relaxed">
+                  Une communauté engagée de talents et de mentors. Participez à des ateliers, échangez avec des professionnels et inspirez-vous de retours d'expérience concrets.
+                </CardDescription>
+              </CardHeader>
+              <CardFooter className="pt-0">
+                <Link href="/profil" className="text-xs font-bold text-[var(--color-primary)] hover:text-[var(--color-cta)] flex items-center gap-1">
+                  Rejoindre la communauté <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </CardFooter>
+            </Card>
+          </div>
+        </section>
+
+        {/* Value Proposition B2C & B2G/B2B */}
         <section className="grid md:grid-cols-2 gap-8 pt-4">
           <Card className="border border-gray-200 bg-white shadow-sm hover:shadow-md transition-shadow">
             <CardHeader className="space-y-2">
@@ -148,24 +222,24 @@ export default async function Home() {
                 <CheckCircle2 className="w-6 h-6" />
               </div>
               <CardTitle className="text-xl font-bold text-[var(--color-primary)]">
-                Pourquoi rejoindre YouthLinkIA ?
+                Pourquoi s'inscrire sur YouthLinkIA ?
               </CardTitle>
               <CardDescription className="text-gray-600">
-                Un espace personnalisé pour propulser vos projets scolaires et professionnels.
+                Un espace personnalisé pour piloter l'ensemble de votre avenir professionnel.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3 text-sm text-gray-600">
               <div className="flex items-start gap-2">
                 <span className="text-[var(--color-cta)] font-bold">✓</span>
-                <span>Sauvegardez vos annonces favorites et suivez l'avancement de vos candidatures.</span>
+                <span>Recevez des recommandations d'opportunités sur mesure adaptées à votre profil.</span>
               </div>
               <div className="flex items-start gap-2">
                 <span className="text-[var(--color-cta)] font-bold">✓</span>
-                <span>Recevez des alertes automatiques selon votre niveau et vos centres d'intérêt.</span>
+                <span>Sauvegardez vos offres préférées et suivez vos démarches au même endroit.</span>
               </div>
               <div className="flex items-start gap-2">
                 <span className="text-[var(--color-cta)] font-bold">✓</span>
-                <span>Accédez à l'orientation scolaire et à l'accompagnement à l'entrepreneuriat.</span>
+                <span>Bénéficiez d'une orientation claire pour prendre les bonnes décisions au bon moment.</span>
               </div>
             </CardContent>
             <CardFooter>
@@ -181,15 +255,15 @@ export default async function Home() {
                 <Building2 className="w-6 h-6" />
               </div>
               <CardTitle className="text-xl font-bold text-white">
-                Vous êtes une institution ou un partenaire ?
+                Institutions & Structures Partenaires
               </CardTitle>
               <CardDescription className="text-gray-200">
-                Diffusez vos offres de bourses, emplois et formations auprès des jeunes.
+                Connectez vos programmes aux talents de la jeunesse.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3 text-sm text-gray-200">
               <p>
-                Gagnez en visibilité dans notre annuaire officiel, soumettez vos opportunités en quelques clics et entrez en contact avec les meilleurs talents.
+                Valorisez vos bourses, offres et dispositifs d'accompagnement dans notre annuaire de référence. Rejoignez le réseau qui brise les silos entre éducation, emploi et politiques publiques.
               </p>
             </CardContent>
             <CardFooter>
@@ -205,4 +279,5 @@ export default async function Home() {
     </div>
   );
 }
+
 
