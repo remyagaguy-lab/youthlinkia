@@ -106,17 +106,74 @@ export default async function Home() {
             </div>
           </div>
 
-          {/* Right Column: Dynamic Illustration */}
-          <div className="relative w-full aspect-square md:aspect-auto md:h-[500px] flex items-center justify-center">
-             <div className="absolute inset-0 bg-gradient-to-tr from-primary-50/50 to-[var(--color-cta)]/10 rounded-full blur-3xl transform rotate-12 scale-105"></div>
-             <div className="relative w-full h-full animate-float">
-                <Image 
-                  src="/illustrations/hero-flat.png" 
-                  alt="YouthLinkIA Solution Illustration" 
-                  fill 
-                  className="object-contain drop-shadow-2xl" 
-                  priority 
-                />
+          {/* Right Column: Dynamic UI Composition (No Image) */}
+          <div className="relative w-full h-[400px] md:h-[500px] flex items-center justify-center lg:ml-6">
+             {/* Background decorative blobs */}
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] sm:w-[350px] sm:h-[350px] bg-gradient-to-tr from-[var(--color-primary)]/20 to-[var(--color-cta)]/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
+             
+             {/* Floating UI Elements Container */}
+             <div className="relative w-full max-w-sm h-full">
+                
+                {/* Floating Card 1: Bourse d'études (Top Right) */}
+                <div className="absolute top-[10%] right-[0%] sm:-right-[5%] bg-white p-4 sm:p-5 rounded-2xl shadow-xl border border-gray-100 animate-float w-64 transform rotate-2 z-20">
+                   <div className="flex items-start gap-3.5">
+                      <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-[var(--color-primary)] shrink-0">
+                         <GraduationCap className="w-5 h-5" />
+                      </div>
+                      <div>
+                         <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Nouveau Programme</div>
+                         <div className="text-sm font-bold text-gray-800 leading-tight">Bourse d'Excellence Master</div>
+                         <div className="text-xs font-medium text-gray-500 mt-1.5 flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
+                            France • 100% financé
+                         </div>
+                      </div>
+                   </div>
+                </div>
+
+                {/* Floating Card 2: Emploi (Center Left) */}
+                <div className="absolute top-[40%] left-[0%] sm:-left-[10%] bg-white p-4 sm:p-5 rounded-2xl shadow-xl border border-gray-100 animate-float w-72 transform -rotate-2 z-30" style={{ animationDelay: '1.5s' }}>
+                   <div className="flex items-start gap-3.5">
+                      <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center text-[var(--color-cta)] shrink-0">
+                         <Briefcase className="w-5 h-5" />
+                      </div>
+                      <div className="w-full">
+                         <div className="flex items-center justify-between mb-1">
+                           <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Offre Premium</div>
+                           <span className="px-2 py-0.5 rounded-md text-[10px] font-bold border border-[var(--color-cta)] text-[var(--color-cta)] bg-orange-50/50">CDI</span>
+                         </div>
+                         <div className="text-sm font-bold text-gray-800 leading-tight">Business Developer</div>
+                         <div className="mt-3 h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
+                           <div className="h-full bg-[var(--color-cta)] w-3/4 rounded-full"></div>
+                         </div>
+                         <div className="text-[10px] font-medium text-gray-400 mt-1.5 text-right">Match à 85% avec votre profil</div>
+                      </div>
+                   </div>
+                </div>
+
+                {/* Floating Card 3: Dashboard / Stats (Bottom Right) */}
+                <div className="absolute bottom-[10%] right-[5%] sm:right-[10%] bg-[var(--color-primary)] p-4 sm:p-5 rounded-2xl shadow-xl border border-primary-800 animate-float w-56 text-white transform rotate-1 z-10" style={{ animationDelay: '3s' }}>
+                   <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-sm">
+                           <Users className="w-4 h-4 text-white" />
+                        </div>
+                        <div className="text-sm font-bold tracking-wide">Réseau Pro</div>
+                      </div>
+                      <div className="w-2 h-2 rounded-full bg-[var(--color-cta)] animate-ping"></div>
+                   </div>
+                   <div className="flex -space-x-2.5">
+                     <div className="w-8 h-8 rounded-full border-2 border-[var(--color-primary)] bg-indigo-400 shadow-sm"></div>
+                     <div className="w-8 h-8 rounded-full border-2 border-[var(--color-primary)] bg-emerald-400 shadow-sm"></div>
+                     <div className="w-8 h-8 rounded-full border-2 border-[var(--color-primary)] bg-amber-400 shadow-sm"></div>
+                     <div className="w-8 h-8 rounded-full border-2 border-[var(--color-primary)] bg-rose-400 shadow-sm"></div>
+                     <div className="w-8 h-8 rounded-full border-2 border-[var(--color-primary)] bg-white/20 flex items-center justify-center text-[10px] font-bold text-white backdrop-blur-md shadow-sm">
+                       +5k
+                     </div>
+                   </div>
+                   <div className="text-xs text-primary-200 mt-3.5 font-medium">Jeunes talents connectés</div>
+                </div>
+
              </div>
           </div>
         </section>
