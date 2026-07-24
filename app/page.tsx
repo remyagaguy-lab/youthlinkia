@@ -61,7 +61,7 @@ export default async function Home() {
             </h1>
 
             <p className="text-lg md:text-xl text-[var(--color-text-secondary)] leading-relaxed">
-              YouthLinkIA accompagne les jeunes talents dans leur transition de l'école vers le monde professionnel. Accédez librement aux bourses d'études, offres d'emploi, stages et programmes d'accompagnement au Togo et en Afrique.
+              YouthLinkIA accompagne les jeunes talents dans leur transition de l'école vers le monde professionnel. Accédez librement aux bourses d'études, offres d'emploi, stages et programmes d'accompagnement en Afrique et à l'international.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-start items-center pt-3">
