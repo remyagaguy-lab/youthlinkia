@@ -23,7 +23,7 @@ export default async function Home() {
     <div className="min-h-screen bg-[var(--color-background)] pb-24">
       {/* Header Public */}
       <header className="bg-white shadow-sm sticky top-0 z-40 border-b border-gray-100">
-        <div className="container mx-auto px-4 h-20 flex items-center justify-between">
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Image src="/brand/logo-color.png" alt="YouthLinkIA Logo" width={160} height={50} className="h-12 w-auto object-contain" priority />
           </Link>
