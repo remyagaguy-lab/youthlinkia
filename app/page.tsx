@@ -114,28 +114,18 @@ export default async function Home() {
 
              {/* Central Compass */}
              <div className="relative w-64 h-64 sm:w-72 sm:h-72 z-20 flex items-center justify-center animate-float">
-               
-               {/* Outer Rotating Ring */}
-               <div className="absolute inset-0 rounded-full border-[2px] border-dashed border-[var(--color-primary)]/30 animate-[spin_30s_linear_infinite]"></div>
-               
-               {/* Middle Ring */}
-               <div className="absolute inset-4 rounded-full border-2 border-[var(--color-primary)]/10 shadow-[inset_0_0_30px_rgba(0,0,0,0.05)] bg-white/30 backdrop-blur-md"></div>
-               
-               {/* Inner Dial (The Compass Face with 3D Image) */}
-               <div className="absolute inset-4 rounded-full shadow-2xl flex items-center justify-center overflow-hidden bg-transparent">
                  
-                 {/* Realistic 3D Compass Image */}
-                 <div className="relative w-full h-full flex items-center justify-center transition-transform duration-1000 ease-out hover:scale-105 hover:rotate-3">
+                 {/* Realistic 3D Compass Image (sans cadre) */}
+                 <div className="relative w-full h-full rounded-full flex items-center justify-center transition-transform duration-1000 ease-out hover:scale-105 hover:rotate-3 overflow-hidden shadow-2xl">
                     <Image 
                       src="/illustrations/compass-3d.png" 
                       alt="Boussole Intelligente 3D" 
                       fill 
-                      className="object-contain drop-shadow-2xl scale-[1.2]" 
+                      className="object-contain scale-[1.15]" 
                       priority 
                     />
                  </div>
                  
-               </div>
              </div>
 
              {/* Orbiting Elements (Satellites) */}
