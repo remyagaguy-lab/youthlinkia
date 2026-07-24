@@ -23,7 +23,7 @@ export default async function AnnuairePage({
   if (params.pays) query = query.contains('pays_intervention', [params.pays])
   if (params.q) query = query.ilike('nom', `%${params.q}%`)
 
-  const { data: structures } = await query.order('nom', { ascending: true })
+  const { data: structures } = await query.order('created_at', { ascending: true })
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] pb-24">
