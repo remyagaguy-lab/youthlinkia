@@ -79,31 +79,7 @@ export default async function Home() {
               </Button>
             </div>
 
-            {/* Quick Category Quick Links Container */}
-            <div className="pt-4">
-              <div className="p-3 bg-white/80 backdrop-blur-xs rounded-2xl border border-gray-200/80 shadow-xs flex flex-wrap justify-start items-center gap-2">
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider mr-1 hidden sm:inline">Accès rapide:</span>
-                {[
-                  { label: "Bourses", type: "bourse", icon: GraduationCap },
-                  { label: "Emploi", type: "emploi", icon: Briefcase },
-                  { label: "Stages", type: "stage", icon: Sprout },
-                  { label: "Formations", type: "formation", icon: BookOpen },
-                  { label: "Concours", type: "concours", icon: Trophy }
-                ].map((cat) => {
-                  const IconComponent = cat.icon;
-                  return (
-                    <Link
-                      key={cat.type}
-                      href={`/opportunites?type=${cat.type}`}
-                      className="px-3 py-1.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-semibold text-gray-700 hover:bg-[var(--color-primary)] hover:text-white hover:border-[var(--color-primary)] transition-all shadow-2xs flex items-center gap-1.5 group"
-                    >
-                      <IconComponent className="w-3.5 h-3.5 text-[var(--color-primary)] group-hover:text-white" />
-                      <span>{cat.label}</span>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
+
           </div>
 
           {/* Right Column: La Boussole Intelligente (The Intelligent Compass) */}
