@@ -45,6 +45,7 @@ Voici la structure exacte du JSON attendu :
   "site_web_officiel": "URL du site (si connu, sinon null)",
   "contact_email": "Email (si connu, sinon null)",
   "contact_telephone": "Téléphone (si connu, sinon null)",
+  "logo_url": "Une URL valide vers le logo de l'établissement (ex: Wikimedia Commons, site officiel). IMPORTANT: Fournis un lien direct vers l'image (.png ou .jpg). Si introuvable, mets null.",
   "couverture_url": "Une URL d'image générique de haute qualité (Unsplash) représentant un campus ou des étudiants africains. ex: https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
   "galerie_images": [
     "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
@@ -92,7 +93,7 @@ async function run() {
   const { data: structures, error } = await supabase
     .from('structures')
     .select('id, nom, type')
-    .is('description_detaillee', null) // Only process ones that don't have details
+    .is('logo_url', null) // Process those that don't have a logo yet
 
   if (error) {
     console.error('❌ Erreur de récupération des structures:', error)

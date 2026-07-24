@@ -103,6 +103,7 @@ export default async function StructureDetailPage({
                 return (
                   <LogoImage 
                     src={finalLogoUrl} 
+                    website={website}
                     alt={structure.nom} 
                     fallbackLetter={structure.nom} 
                     containerClassName="w-full h-full rounded-xl text-6xl"

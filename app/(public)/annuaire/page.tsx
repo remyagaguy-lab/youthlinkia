@@ -126,6 +126,7 @@ export default async function AnnuairePage({
                       return (
                         <LogoImage 
                           src={finalLogoUrl} 
+                          website={website}
                           alt={structure.nom} 
                           fallbackLetter={structure.nom} 
                           containerClassName="w-16 h-16 rounded-xl shadow-sm border border-gray-100 p-2 text-2xl"
