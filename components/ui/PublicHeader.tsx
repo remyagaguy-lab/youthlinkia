@@ -7,7 +7,7 @@ export function PublicHeader() {
   return (
     <header className="bg-white shadow-sm sticky top-0 z-40 border-b border-gray-100">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2 translate-y-[6px]">
           <Image src="/brand/logo-color.png" alt="YouthLinkIA Logo" width={160} height={50} className="h-14 w-auto object-contain scale-[2.8] origin-left" priority />
         </Link>
         
