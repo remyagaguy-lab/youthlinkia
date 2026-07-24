@@ -22,4 +22,9 @@ Always refer to these skills when planning architecture, writing code, or review
 - Piliers éditoriaux : *Le Tremplin de Carrière*, *Le Labo du Business*, *La TalentUp Room*, *L'Orientation 360°*.
 - Ton de voix : Inspirant, motivateur, pédagogue, pragmatique et inclusif.
 
+## RÈGLE STRICTE & PERMANENTE - INTERDICTION DES ÉMOJIS (ICÔNES VECTORIELLES UNIQUEMENT)
+- **INTERDICTION STRICTE D'UTILISER DES ÉMOJIS TEXTUELS DANS L'UI WEB & MOBILE** (ex: 🎓, 💼, 🌱, 📚, 🏆, 🇹🇬, 📍, ⏱️, 🚀, 🔎, etc.).
+- Utilisez **EXCLUSIVEMENT des icônes SVG vectorielles** (ex: la bibliothèque `lucide-react` avec `GraduationCap`, `Briefcase`, `Sprout`, `BookOpen`, `Trophy`, `Globe`, `Calendar`, `Search`, `Sparkles`, etc.).
+
+
 

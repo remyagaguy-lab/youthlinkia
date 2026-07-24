@@ -2,7 +2,7 @@
 
 import React, { useState, useTransition, useEffect } from 'react'
 import { OpportuniteCard } from '@/components/ui/OpportuniteCard'
-import { Search, SlidersHorizontal, Loader2, RefreshCw, Filter, Sparkles, X, Check, Globe, GraduationCap, Calendar, MapPin } from 'lucide-react'
+import { Search, SlidersHorizontal, Loader2, RefreshCw, Filter, Sparkles, X, Check, Globe, GraduationCap, Calendar, Clock, Briefcase, Sprout, BookOpen, Trophy } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/Button'
 
@@ -47,23 +47,23 @@ export function OpportunitesFeedClient({
   const [isFiltering, startFiltering] = useTransition()
 
   const typesList = [
-    { label: "Toutes les catégories", value: "", icon: "✨" },
-    { label: "Bourses d'études", value: "bourse", icon: "🎓" },
-    { label: "Emplois & Volontariat", value: "emploi", icon: "💼" },
-    { label: "Stages & Alternance", value: "stage", icon: "🌱" },
-    { label: "Formations & Filières", value: "formation", icon: "📚" },
-    { label: "Concours & Challenges", value: "concours", icon: "🏆" },
+    { label: "Toutes les catégories", value: "", icon: Sparkles },
+    { label: "Bourses d'études", value: "bourse", icon: GraduationCap },
+    { label: "Emplois & Volontariat", value: "emploi", icon: Briefcase },
+    { label: "Stages & Alternance", value: "stage", icon: Sprout },
+    { label: "Formations & Filières", value: "formation", icon: BookOpen },
+    { label: "Concours & Challenges", value: "concours", icon: Trophy },
   ]
 
   const paysList = [
     { label: "Tous les pays", value: "" },
-    { label: "Togo 🇹🇬", value: "TG" },
-    { label: "Bénin 🇧🇯", value: "BJ" },
-    { label: "Côte d'Ivoire 🇨🇮", value: "CI" },
-    { label: "Sénégal 🇸🇳", value: "SN" },
-    { label: "France 🇫🇷", value: "FR" },
-    { label: "Canada 🇨🇦", value: "CA" },
-    { label: "International 🌍", value: "INT" },
+    { label: "Togo", value: "TG" },
+    { label: "Bénin", value: "BJ" },
+    { label: "Côte d'Ivoire", value: "CI" },
+    { label: "Sénégal", value: "SN" },
+    { label: "France", value: "FR" },
+    { label: "Canada", value: "CA" },
+    { label: "International", value: "INT" },
   ]
 
   const niveauxList = [
@@ -209,23 +209,27 @@ export function OpportunitesFeedClient({
 
         {/* Quick Horizontal Type Pills on Mobile */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-          {typesList.map((t) => (
-            <button
-              key={t.value}
-              onClick={() => {
-                const val = selectedType === t.value ? '' : t.value
-                setSelectedType(val)
-                handleFilterChange(query, val, selectedPays, selectedNiveau, onlyUrgent)
-              }}
-              className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all border ${
-                selectedType === t.value
-                  ? "bg-[var(--color-primary)] text-white border-[var(--color-primary)] shadow-xs"
-                  : "bg-white text-gray-700 border-gray-200"
-              }`}
-            >
-              {t.icon} {t.label}
-            </button>
-          ))}
+          {typesList.map((t) => {
+            const IconComp = t.icon
+            return (
+              <button
+                key={t.value}
+                onClick={() => {
+                  const val = selectedType === t.value ? '' : t.value
+                  setSelectedType(val)
+                  handleFilterChange(query, val, selectedPays, selectedNiveau, onlyUrgent)
+                }}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all border flex items-center gap-1.5 ${
+                  selectedType === t.value
+                    ? "bg-[var(--color-primary)] text-white border-[var(--color-primary)] shadow-xs"
+                    : "bg-white text-gray-700 border-gray-200"
+                }`}
+              >
+                <IconComp className="w-3.5 h-3.5" />
+                <span>{t.label}</span>
+              </button>
+            )
+          })}
         </div>
       </div>
 
@@ -288,7 +292,7 @@ export function OpportunitesFeedClient({
               )}
               {onlyUrgent && (
                 <span className="px-2.5 py-1 rounded-md bg-white border border-primary-200 text-primary-800 font-semibold flex items-center gap-1">
-                  ⏱️ Clôture sous 15j
+                  <Clock className="w-3.5 h-3.5 text-[var(--color-cta)]" /> Clôture sous 15j
                   <X className="w-3 h-3 cursor-pointer hover:text-red-500" onClick={() => { setOnlyUrgent(false); handleFilterChange(query, selectedType, selectedPays, selectedNiveau, false); }} />
                 </span>
               )}
@@ -307,7 +311,7 @@ export function OpportunitesFeedClient({
             </div>
           ) : (
             <div className="bg-white rounded-2xl border border-gray-200 p-12 text-center space-y-4">
-              <div className="text-4xl">🔎</div>
+              <Search className="w-12 h-12 text-gray-300 mx-auto" />
               <h3 className="text-lg font-bold text-gray-900">Aucune opportunité ne correspond à ces critères</h3>
               <p className="text-sm text-gray-500 max-w-md mx-auto">
                 Modifiez vos filtres ou effectuez une nouvelle recherche.
@@ -380,6 +384,7 @@ export function OpportunitesFeedClient({
               <div className="space-y-1.5">
                 {typesList.map((t) => {
                   const isChecked = selectedType === t.value
+                  const IconComp = t.icon
                   return (
                     <button
                       key={t.value}
@@ -394,7 +399,7 @@ export function OpportunitesFeedClient({
                       }`}
                     >
                       <span className="flex items-center gap-2">
-                        <span>{t.icon}</span>
+                        <IconComp className="w-4 h-4 text-[var(--color-primary)]" />
                         <span>{t.label}</span>
                       </span>
                       {isChecked && <Check className="w-4 h-4 text-[var(--color-primary)]" />}
@@ -517,6 +522,7 @@ export function OpportunitesFeedClient({
                 <div className="grid grid-cols-2 gap-2">
                   {typesList.map((t) => {
                     const isChecked = selectedType === t.value
+                    const IconComp = t.icon
                     return (
                       <button
                         key={t.value}
@@ -527,8 +533,11 @@ export function OpportunitesFeedClient({
                             : "bg-gray-50 border-gray-200 text-gray-700"
                         }`}
                       >
-                        <span className="truncate">{t.icon} {t.label}</span>
-                        {isChecked && <Check className="w-3.5 h-3.5 shrink-0" />}
+                        <span className="truncate flex items-center gap-1.5">
+                          <IconComp className="w-4 h-4 text-[var(--color-primary)]" />
+                          <span>{t.label}</span>
+                        </span>
+                        {isChecked && <Check className="w-3.5 h-3.5 shrink-0 text-[var(--color-primary)]" />}
                       </button>
                     )
                   })}
@@ -618,3 +627,4 @@ export function OpportunitesFeedClient({
     </div>
   )
 }
+
