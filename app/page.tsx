@@ -82,23 +82,26 @@ export default async function Home() {
             </Button>
           </div>
 
-          {/* Quick Category Filters */}
-          <div className="flex flex-wrap justify-center gap-2 pt-6">
-            {[
-              { label: "🎓 Bourses d'études", type: "bourse" },
-              { label: "💼 Emploi & Volontariat", type: "emploi" },
-              { label: "🌱 Stages & Alternance", type: "stage" },
-              { label: "📚 Formations & Filières", type: "formation" },
-              { label: "🏆 Concours & Challenges", type: "concours" }
-            ].map((cat) => (
-              <Link
-                key={cat.type}
-                href={`/opportunites?type=${cat.type}`}
-                className="px-3.5 py-1.5 rounded-full bg-white border border-gray-200 text-xs font-semibold text-gray-700 hover:border-primary-400 hover:text-[var(--color-primary)] transition-all shadow-2xs"
-              >
-                {cat.label}
-              </Link>
-            ))}
+          {/* Quick Category Quick Links Container */}
+          <div className="pt-4 max-w-3xl mx-auto">
+            <div className="p-3 bg-white/80 backdrop-blur-xs rounded-2xl border border-gray-200/80 shadow-xs flex flex-wrap justify-center items-center gap-2">
+              <span className="text-xs font-bold text-gray-400 uppercase tracking-wider mr-1 hidden sm:inline">Accès rapide:</span>
+              {[
+                { label: "🎓 Bourses d'études", type: "bourse" },
+                { label: "💼 Emploi & Volontariat", type: "emploi" },
+                { label: "🌱 Stages & Alternance", type: "stage" },
+                { label: "📚 Formations & Filières", type: "formation" },
+                { label: "🏆 Concours & Challenges", type: "concours" }
+              ].map((cat) => (
+                <Link
+                  key={cat.type}
+                  href={`/opportunites?type=${cat.type}`}
+                  className="px-3 py-1.5 rounded-xl bg-gray-50 border border-gray-200 text-xs font-semibold text-gray-700 hover:bg-[var(--color-primary)] hover:text-white hover:border-[var(--color-primary)] transition-all shadow-2xs"
+                >
+                  {cat.label}
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 
