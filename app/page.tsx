@@ -25,7 +25,7 @@ export default async function Home() {
       <header className="bg-white shadow-sm sticky top-0 z-40 border-b border-gray-100">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/brand/logo-color.png" alt="YouthLinkIA Logo" width={160} height={50} className="h-12 w-auto object-contain" priority />
+            <Image src="/brand/logo-color.png" alt="YouthLinkIA Logo" width={160} height={50} className="h-14 w-auto object-contain" priority />
           </Link>
           
           <nav className="hidden md:flex items-center gap-8 font-medium text-sm text-gray-700">
