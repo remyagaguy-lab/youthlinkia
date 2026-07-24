@@ -107,7 +107,7 @@ export default async function Home() {
           </div>
 
           {/* Right Column: La Boussole Intelligente (The Intelligent Compass) */}
-          <div className="relative w-full h-[450px] md:h-[550px] flex items-center justify-center lg:ml-6 mt-12 md:mt-0">
+          <div className="relative w-full h-[450px] md:h-[550px] flex items-center justify-center lg:ml-6 mt-4 md:-mt-12">
              
              {/* Glow background */}
              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-gradient-to-tr from-[var(--color-primary)]/20 to-[var(--color-cta)]/20 rounded-full blur-[60px] animate-pulse" style={{ animationDuration: '4s' }}></div>
