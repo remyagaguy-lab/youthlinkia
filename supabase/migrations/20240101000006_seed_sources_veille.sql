@@ -1,4 +1,7 @@
--- Insertion initiale des 36 sources de veille de bourses d'études
+-- 1. Ajout de la contrainte d'unicité sur l'URL
+ALTER TABLE sources_veille ADD CONSTRAINT sources_veille_url_unique UNIQUE (url);
+
+-- 2. Insertion initiale des 36 sources
 INSERT INTO sources_veille (nom, url, score_confiance) VALUES
 ('GreatYop', 'https://greatyop.com/', 0.8),
 ('Afri-Carrières', 'https://afri-carrieres.com/', 0.8),
