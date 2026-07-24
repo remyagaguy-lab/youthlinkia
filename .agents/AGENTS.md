@@ -10,3 +10,8 @@ Throughout the development of the YouthLinkia project, you MUST actively apply t
 - **react-native-skills**: Apply to any mobile-specific or React Native codebase segments.
 
 Always refer to these skills when planning architecture, writing code, or reviewing the user interface.
+
+## RÈGLE STRICTE & PERMANENTE - CHARTE VISUELLE YOUTHLINKIA
+- **INTERDICTION STRICTE DE MODIFIER LA CHARTE VISUELLE** : L'identité visuelle de YouthLinkIA (couleurs de marque `--color-primary`, `--color-cta`, thèmes, logos, typographies officielles) est définitive.
+- Vous ne devez sous aucun prétexte altérer, modifier ou remplacer la charte visuelle et les couleurs officielles de YouthLinkia. Tout ajustement UX/UI doit s'intégrer dans le strict respect de cette charte établie.
+

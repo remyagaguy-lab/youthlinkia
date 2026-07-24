@@ -6,6 +6,7 @@ export interface Env {
   SUPABASE_URL: string
   SUPABASE_SERVICE_KEY: string
   OPENROUTER_API_KEY: string
+  OPENROUTER_MODEL?: string
 }
 
 const parser = new Parser()
@@ -85,9 +86,11 @@ async function runVeilleIA(env: Env) {
           
           // Remove scripts and styles
           $('script, style, nav, footer, header').remove()
-          const textContent = $('body').text().replace(/\s+/g, ' ').trim().substring(0, 8000)
+          const textContent = $('body').text().replace(/\s+/g, ' ').trim().substring(0, 30000)
 
-          // Call OpenRouter
+          // Call OpenRouter with Gemini Flash
+          const modelName = env.OPENROUTER_MODEL || 'google/gemini-2.0-flash-001'
+
           const aiPrompt = `Tu es un expert en extraction d'opportunités (bourses, emplois, stages).
 Extrais les informations de l'offre suivante au format JSON strict (sans markdown autour). 
 Le JSON doit correspondre à cette structure :
@@ -118,7 +121,7 @@ ${textContent}`
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              model: 'openai/gpt-4o-mini',
+              model: modelName,
               messages: [{ role: 'user', content: aiPrompt }]
             })
           })

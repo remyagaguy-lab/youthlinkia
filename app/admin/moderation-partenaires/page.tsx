@@ -46,7 +46,7 @@ export default async function ModerationPage() {
                   <span>✉️ {structure.contact}</span>
                   <span>🔗 <a href={structure.lien} target="_blank" className="hover:underline text-primary-600">{structure.lien}</a></span>
                   {/* Note: In a real app we'd fetch profile email, but here we just show what we have in the query */}
-                  <span>👤 Soumis par: {structure.profiles?.prenom}</span>
+                  <span>👤 Soumis par: {Array.isArray(structure.profiles) ? structure.profiles[0]?.prenom : (structure.profiles as { prenom: string } | null)?.prenom}</span>
                 </div>
               </div>
 

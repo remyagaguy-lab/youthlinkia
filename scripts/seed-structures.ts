@@ -38,7 +38,7 @@ async function seed() {
 
   console.log(`Début de l'import de ${records.length} structures...`)
 
-  for (const record of records) {
+  for (const record of records as Record<string, any>[]) {
     const slug = record.nom.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '')
     
     const payload = {

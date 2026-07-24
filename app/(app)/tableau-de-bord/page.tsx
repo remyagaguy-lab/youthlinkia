@@ -10,10 +10,10 @@ export default async function DashboardPage() {
   
   if (!user) redirect('/connexion')
 
-  // Fetch the profile to get the 'prenom' and 'role'
+  // Fetch the profile to get the 'prenom', 'role', and 'niveau_etudes'
   const { data: profile } = await supabase
     .from('profiles')
-    .select('prenom, role, statut_validation')
+    .select('prenom, role, statut_validation, niveau_etudes')
     .eq('id', user.id)
     .single()
 

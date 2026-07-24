@@ -73,7 +73,7 @@ export default async function OrientationScolairePage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {opportunites.map((opp) => (
-                <OpportuniteCard key={opp.id} opportunite={opp} />
+                <OpportuniteCard key={opp.id} opp={opp} />
               ))}
             </div>
           )}
