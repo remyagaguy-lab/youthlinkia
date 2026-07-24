@@ -292,7 +292,9 @@ export default async function StructureDetailPage({
                   Chiffres Clés
                 </h3>
                 <div className="flex flex-col gap-8 relative z-10">
-                  {Object.entries(chiffres).map(([key, value]) => (
+                  {Object.entries(chiffres)
+                    .filter(([key]) => key !== 'reseaux_sociaux')
+                    .map(([key, value]) => (
                     <div key={key}>
                       <div className="text-3xl md:text-4xl font-black text-white tracking-tight leading-none mb-2">{String(value)}</div>
                       <div className="text-sm text-primary-200 uppercase tracking-widest font-bold">
@@ -336,6 +338,21 @@ export default async function StructureDetailPage({
                     </a>
                   </li>
                 )}
+                
+                {/* RÉSEAUX SOCIAUX */}
+                {chiffres.reseaux_sociaux && typeof chiffres.reseaux_sociaux === 'object' && Object.entries(chiffres.reseaux_sociaux).map(([reseau, url]) => {
+                  if (!url) return null;
+                  return (
+                    <li key={reseau} className="flex items-start gap-4">
+                      <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center shrink-0">
+                        <Globe className="text-primary-600" size={18} />
+                      </div>
+                      <a href={String(url)} target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700 font-medium mt-2 break-all underline-offset-4 hover:underline capitalize">
+                        Page {reseau}
+                      </a>
+                    </li>
+                  )
+                })}
                 <li className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center shrink-0">
                     <MapPin className="text-primary-600" size={18} />

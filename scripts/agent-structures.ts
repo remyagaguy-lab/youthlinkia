@@ -18,35 +18,42 @@ async function generateStructureData(nom: string, type: string) {
   console.log(`\n🤖 Agent IA en cours de recherche pour : ${nom} (${type})...`)
   
   const prompt = `
-Tu es un expert de l'enseignement supérieur au Togo.
-Je veux que tu me fournisses des informations détaillées et réelles (ou très fidèles à la réalité) sur l'établissement suivant situé au Togo :
+Tu es un expert web scraper et chercheur spécialisé dans l'enseignement supérieur au Togo.
+Ta mission est de faire une RECHERCHE EXHAUSTIVE et APPROFONDIE sur l'établissement suivant situé au Togo :
 Nom : ${nom}
 Type : ${type}
+
+Prends le temps d'analyser toutes les sources possibles (site officiel, pages Wikipedia, pages Facebook, LinkedIn, articles, annuaires...). Je veux des données RICHES et COMPLÈTES. Ne te contente pas d'un résumé superficiel.
 
 Réponds UNIQUEMENT avec un objet JSON valide, sans aucun texte autour (pas de markdown \`\`\`json).
 Voici la structure exacte du JSON attendu :
 {
-  "description_detaillee": "Un texte complet en Markdown (3-4 paragraphes) présentant l'établissement, son histoire, sa vision et pourquoi le choisir.",
+  "description_detaillee": "Un texte complet et très riche en Markdown (4-5 paragraphes) présentant l'établissement, son histoire, ses infrastructures, sa vision, ses partenariats et pourquoi le choisir. Sois très détaillé.",
   "formations_proposees": [
     {
-      "niveau": "Licence / Master / BTS",
-      "domaine": "Ex: Informatique, Gestion...",
+      "niveau": "Licence / Master / BTS / Certificat",
+      "domaine": "Ex: Informatique, Gestion, Santé...",
       "filiere": "Nom exact de la filière",
-      "description": "Courte description de cette formation (1 phrase)"
+      "description": "Description détaillée de cette formation, des débouchés, et de son contenu (2-3 phrases minimum)."
     }
   ],
-  "conditions_admission": "Un texte (peut inclure du Markdown) expliquant les modalités d'admission (bac requis, concours, étude de dossier...).",
-  "frais_scolarite": "Une indication textuelle des frais de scolarité (ex: 'Entre 300 000 FCFA et 500 000 FCFA par an' ou 'Non communiqué').",
+  "conditions_admission": "Un texte (en Markdown) détaillant très précisément les modalités d'admission (bac requis, séries acceptées, concours, étude de dossier, dates de rentrée...).",
+  "frais_scolarite": "Une indication textuelle précise des frais de scolarité (ex: 'Licence: 450 000 FCFA/an. Master: 600 000 FCFA/an' ou 'Non communiqué').",
   "chiffres_cles": {
     "etudiants": "ex: +5000",
     "enseignants": "ex: +200",
-    "taux_insertion": "ex: 85%"
+    "taux_insertion": "ex: 85%",
+    "reseaux_sociaux": {
+      "facebook": "Lien ou nom de page",
+      "linkedin": "Lien ou nom de page",
+      "twitter": "Lien ou nom de page"
+    }
   },
-  "site_web_officiel": "URL du site (si connu, sinon null)",
-  "contact_email": "Email (si connu, sinon null)",
-  "contact_telephone": "Téléphone (si connu, sinon null)",
-  "logo_url": "Une URL valide vers le logo de l'établissement (ex: Wikimedia Commons, site officiel). IMPORTANT: Fournis un lien direct vers l'image (.png ou .jpg). Si introuvable, mets null.",
-  "couverture_url": "Une URL d'image générique de haute qualité (Unsplash) représentant un campus ou des étudiants africains. ex: https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+  "site_web_officiel": "URL du site officiel ou de la page Facebook (si connu, sinon null)",
+  "contact_email": "Email officiel de contact (si connu, sinon null)",
+  "contact_telephone": "Numéros de téléphone (si connu, sinon null)",
+  "logo_url": "Une URL valide vers le logo de l'établissement (ex: Wikimedia Commons, Facebook, site officiel). IMPORTANT: Cherche bien le logo officiel. Fournis un lien direct vers l'image (.png, .jpg ou .svg). Si vraiment introuvable, mets null.",
+  "couverture_url": "Une URL d'image générique de haute qualité (Unsplash) représentant un campus ou des étudiants africains.",
   "galerie_images": [
     "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
@@ -62,9 +69,9 @@ Assure-toi que le JSON est valide.`
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'google/gemini-2.5-flash-lite',
+        model: 'google/gemini-2.5-pro',
         messages: [{ role: 'user', content: prompt }],
-        temperature: 0.3,
+        temperature: 0.2,
       }),
     })
 
@@ -89,11 +96,10 @@ Assure-toi que le JSON est valide.`
 async function run() {
   console.log('🚀 Démarrage de l\'Agent de Collecte YouthLinkIA...')
 
-  // Get all structures that haven't been processed yet
+  // Get all structures to enrich them thoroughly
   const { data: structures, error } = await supabase
     .from('structures')
     .select('id, nom, type')
-    .is('logo_url', null) // Process those that don't have a logo yet
 
   if (error) {
     console.error('❌ Erreur de récupération des structures:', error)
@@ -111,6 +117,9 @@ async function run() {
     const generatedData = await generateStructureData(structure.nom, structure.type)
     
     if (generatedData) {
+      // The AI generates reseaux_sociaux inside chiffres_cles, which is perfect since
+      // chiffres_cles is a JSONB column in the database.
+      // So we can just save generatedData directly without modifications!
       const { error: updateError } = await supabase
         .from('structures')
         .update(generatedData)
