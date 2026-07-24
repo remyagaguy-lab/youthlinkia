@@ -106,73 +106,104 @@ export default async function Home() {
             </div>
           </div>
 
-          {/* Right Column: Dynamic UI Composition (No Image) */}
-          <div className="relative w-full h-[400px] md:h-[500px] flex items-center justify-center lg:ml-6">
-             {/* Background decorative blobs */}
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] sm:w-[350px] sm:h-[350px] bg-gradient-to-tr from-[var(--color-primary)]/20 to-[var(--color-cta)]/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
+          {/* Right Column: La Boussole Intelligente (The Intelligent Compass) */}
+          <div className="relative w-full h-[450px] md:h-[550px] flex items-center justify-center lg:ml-6 mt-12 md:mt-0">
              
-             {/* Floating UI Elements Container */}
-             <div className="relative w-full max-w-sm h-full">
-                
-                {/* Floating Card 1: Bourse d'études (Top Right) */}
-                <div className="absolute top-[10%] right-[0%] sm:-right-[5%] bg-white p-4 sm:p-5 rounded-2xl shadow-xl border border-gray-100 animate-float w-64 transform rotate-2 z-20">
-                   <div className="flex items-start gap-3.5">
-                      <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-[var(--color-primary)] shrink-0">
-                         <GraduationCap className="w-5 h-5" />
-                      </div>
-                      <div>
-                         <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Nouveau Programme</div>
-                         <div className="text-sm font-bold text-gray-800 leading-tight">Bourse d'Excellence Master</div>
-                         <div className="text-xs font-medium text-gray-500 mt-1.5 flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
-                            France • 100% financé
-                         </div>
-                      </div>
-                   </div>
-                </div>
+             {/* Glow background */}
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-gradient-to-tr from-[var(--color-primary)]/20 to-[var(--color-cta)]/20 rounded-full blur-[60px] animate-pulse" style={{ animationDuration: '4s' }}></div>
 
-                {/* Floating Card 2: Emploi (Center Left) */}
-                <div className="absolute top-[40%] left-[0%] sm:-left-[10%] bg-white p-4 sm:p-5 rounded-2xl shadow-xl border border-gray-100 animate-float w-72 transform -rotate-2 z-30" style={{ animationDelay: '1.5s' }}>
-                   <div className="flex items-start gap-3.5">
-                      <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center text-[var(--color-cta)] shrink-0">
-                         <Briefcase className="w-5 h-5" />
-                      </div>
-                      <div className="w-full">
-                         <div className="flex items-center justify-between mb-1">
-                           <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Offre Premium</div>
-                           <span className="px-2 py-0.5 rounded-md text-[10px] font-bold border border-[var(--color-cta)] text-[var(--color-cta)] bg-orange-50/50">CDI</span>
-                         </div>
-                         <div className="text-sm font-bold text-gray-800 leading-tight">Business Developer</div>
-                         <div className="mt-3 h-1.5 w-full bg-gray-100 rounded-full overflow-hidden">
-                           <div className="h-full bg-[var(--color-cta)] w-3/4 rounded-full"></div>
-                         </div>
-                         <div className="text-[10px] font-medium text-gray-400 mt-1.5 text-right">Match à 85% avec votre profil</div>
-                      </div>
-                   </div>
-                </div>
+             {/* Central Compass */}
+             <div className="relative w-64 h-64 sm:w-72 sm:h-72 z-20 flex items-center justify-center animate-float">
+               
+               {/* Outer Rotating Ring */}
+               <div className="absolute inset-0 rounded-full border-[2px] border-dashed border-[var(--color-primary)]/30 animate-[spin_30s_linear_infinite]"></div>
+               
+               {/* Middle Ring */}
+               <div className="absolute inset-4 rounded-full border-2 border-[var(--color-primary)]/10 shadow-[inset_0_0_30px_rgba(0,0,0,0.05)] bg-white/30 backdrop-blur-md"></div>
+               
+               {/* Inner Dial (The Compass Face) */}
+               <div className="absolute inset-8 rounded-full bg-gradient-to-br from-white to-gray-50 shadow-2xl border border-white flex items-center justify-center">
+                 
+                 {/* Beautiful SVG Compass Needle */}
+                 <div className="relative w-3/4 h-3/4 flex items-center justify-center transition-transform duration-1000 ease-out hover:rotate-12">
+                   <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-xl" style={{ transform: 'rotate(45deg)' }}>
+                     <defs>
+                       <linearGradient id="needle-red" x1="0%" y1="0%" x2="100%" y2="100%">
+                         <stop offset="0%" stopColor="var(--color-cta)" />
+                         <stop offset="100%" stopColor="#b91c1c" />
+                       </linearGradient>
+                       <linearGradient id="needle-gray" x1="0%" y1="0%" x2="100%" y2="100%">
+                         <stop offset="0%" stopColor="#f3f4f6" />
+                         <stop offset="100%" stopColor="#9ca3af" />
+                       </linearGradient>
+                     </defs>
+                     
+                     {/* North Point */}
+                     <path d="M50 5 L62 50 L50 55 L38 50 Z" fill="url(#needle-red)" />
+                     {/* North Point Highlight */}
+                     <path d="M50 5 L62 50 L50 55 Z" fill="rgba(255,255,255,0.3)" />
+                     
+                     {/* South Point */}
+                     <path d="M50 95 L62 50 L50 45 L38 50 Z" fill="url(#needle-gray)" />
+                     {/* South Point Shadow */}
+                     <path d="M50 95 L62 50 L50 45 Z" fill="rgba(0,0,0,0.15)" />
+                     
+                     {/* Center Pin Outer */}
+                     <circle cx="50" cy="50" r="10" fill="#1f2937" />
+                     {/* Center Pin Inner */}
+                     <circle cx="50" cy="50" r="4" fill="#ffffff" />
+                   </svg>
+                 </div>
+                 
+               </div>
+             </div>
 
-                {/* Floating Card 3: Dashboard / Stats (Bottom Right) */}
-                <div className="absolute bottom-[10%] right-[5%] sm:right-[10%] bg-[var(--color-primary)] p-4 sm:p-5 rounded-2xl shadow-xl border border-primary-800 animate-float w-56 text-white transform rotate-1 z-10" style={{ animationDelay: '3s' }}>
-                   <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-sm">
-                           <Users className="w-4 h-4 text-white" />
-                        </div>
-                        <div className="text-sm font-bold tracking-wide">Réseau Pro</div>
-                      </div>
-                      <div className="w-2 h-2 rounded-full bg-[var(--color-cta)] animate-ping"></div>
-                   </div>
-                   <div className="flex -space-x-2.5">
-                     <div className="w-8 h-8 rounded-full border-2 border-[var(--color-primary)] bg-indigo-400 shadow-sm"></div>
-                     <div className="w-8 h-8 rounded-full border-2 border-[var(--color-primary)] bg-emerald-400 shadow-sm"></div>
-                     <div className="w-8 h-8 rounded-full border-2 border-[var(--color-primary)] bg-amber-400 shadow-sm"></div>
-                     <div className="w-8 h-8 rounded-full border-2 border-[var(--color-primary)] bg-rose-400 shadow-sm"></div>
-                     <div className="w-8 h-8 rounded-full border-2 border-[var(--color-primary)] bg-white/20 flex items-center justify-center text-[10px] font-bold text-white backdrop-blur-md shadow-sm">
-                       +5k
-                     </div>
-                   </div>
-                   <div className="text-xs text-primary-200 mt-3.5 font-medium">Jeunes talents connectés</div>
-                </div>
+             {/* Orbiting Elements (Satellites) */}
+             <div className="absolute inset-0 pointer-events-none z-30">
+               
+               {/* Bourse (Top Left) */}
+               <div className="absolute top-[5%] left-[5%] sm:-left-[5%] bg-white px-4 py-3 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3 animate-float pointer-events-auto transition-transform hover:scale-105 hover:border-[var(--color-primary)] cursor-pointer" style={{ animationDelay: '0s' }}>
+                 <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-[var(--color-primary)]">
+                   <GraduationCap className="w-5 h-5" />
+                 </div>
+                 <div>
+                   <div className="text-sm font-extrabold text-gray-800">Bourses d'études</div>
+                   <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wide">Orientation 360°</div>
+                 </div>
+               </div>
+
+               {/* Emploi (Top Right) */}
+               <div className="absolute top-[20%] right-[0%] sm:-right-[10%] bg-white px-4 py-3 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3 animate-float pointer-events-auto transition-transform hover:scale-105 hover:border-[var(--color-cta)] cursor-pointer" style={{ animationDelay: '1s' }}>
+                 <div className="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center text-[var(--color-cta)]">
+                   <Briefcase className="w-5 h-5" />
+                 </div>
+                 <div>
+                   <div className="text-sm font-extrabold text-gray-800">Emplois & Stages</div>
+                   <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wide">Tremplin de carrière</div>
+                 </div>
+               </div>
+
+               {/* Entrepreneuriat (Bottom Left) */}
+               <div className="absolute bottom-[20%] left-[0%] sm:-left-[10%] bg-white px-4 py-3 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-3 animate-float pointer-events-auto transition-transform hover:scale-105 hover:border-green-500 cursor-pointer" style={{ animationDelay: '2s' }}>
+                 <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-600">
+                   <Lightbulb className="w-5 h-5" />
+                 </div>
+                 <div>
+                   <div className="text-sm font-extrabold text-gray-800">Entrepreneuriat</div>
+                   <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wide">Labo du business</div>
+                 </div>
+               </div>
+
+               {/* Mentorat (Bottom Right) */}
+               <div className="absolute bottom-[5%] right-[5%] sm:right-[0%] bg-[var(--color-primary)] px-4 py-3 rounded-2xl shadow-xl border border-primary-800 flex items-center gap-3 animate-float pointer-events-auto transition-transform hover:scale-105 cursor-pointer" style={{ animationDelay: '1.5s' }}>
+                 <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white backdrop-blur-sm">
+                   <Users className="w-5 h-5" />
+                 </div>
+                 <div>
+                   <div className="text-sm font-extrabold text-white">TalentUp Room</div>
+                   <div className="text-[10px] text-primary-200 font-bold uppercase tracking-wide">Réseau & Mentorat</div>
+                 </div>
+               </div>
 
              </div>
           </div>
