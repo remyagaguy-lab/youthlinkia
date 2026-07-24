@@ -103,6 +103,7 @@ Le JSON doit correspondre à cette structure :
   "pays_diffusion": ["string"],
   "niveau_requis": "string ou null",
   "deadline": "YYYY-MM-DD ou null",
+  "est_estime_expiree": boolean,
   "tags": ["string"]
 }
 Ne renvoie QUE le JSON valide.
@@ -138,9 +139,16 @@ ${textContent}`
           
           const extracted = JSON.parse(rawContent)
 
-          // Deduplication avancée (titre similaire)
-          // Dans une V2 on pourrait utiliser vector search, mais ici on check si un titre très proche existe.
-          // On va ignorer cette etape pour le MVP pour garder le worker rapide, ou juste check le titre exact.
+          // 1. Vérification d'expiration (Ignorer les offres dépassées)
+          const todayStr = new Date().toISOString().split('T')[0]
+          const parsedDeadline = (extracted.deadline && extracted.deadline !== 'null') ? extracted.deadline : null
+
+          if (extracted.est_estime_expiree === true || (parsedDeadline && parsedDeadline < todayStr)) {
+            details.push(`Ignoré (offre expirée) : ${extracted.titre} [Deadline: ${parsedDeadline || 'Dépassée'}]`)
+            continue
+          }
+
+          // 2. Déduplication (titre similaire)
           const { data: existingTitle } = await supabase
             .from('opportunites')
             .select('id')
@@ -152,8 +160,7 @@ ${textContent}`
             continue
           }
 
-          // Insert
-          // Creer un slug simple
+          // 3. Insertion et publication directe (statut_moderation: 'publie')
           const slug = extracted.titre.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') + '-' + Date.now()
 
           const { error: insertErr } = await supabase
@@ -168,11 +175,11 @@ ${textContent}`
               pays_eligibles_residence: extracted.pays_eligibles_residence || [],
               pays_diffusion: extracted.pays_diffusion || [],
               niveau_requis: extracted.niveau_requis,
-              deadline: extracted.deadline === 'null' ? null : extracted.deadline,
+              deadline: parsedDeadline,
               lien_source: item.link,
               tags: extracted.tags || [],
               statut_fraicheur: 'a_jour',
-              statut_moderation: 'detecte'
+              statut_moderation: 'publie'
             })
 
           if (insertErr) {
