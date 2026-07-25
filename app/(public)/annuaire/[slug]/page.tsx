@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Button } from '@/components/ui/Button'
 import { LogoImage } from '@/components/ui/LogoImage'
+import { FormationsSection } from './FormationsSection'
 import { 
   Globe, 
   Mail, 
@@ -256,31 +257,7 @@ export default async function StructureDetailPage({
                 <h2 className="text-2xl font-bold font-poppins text-slate-900">Formations Proposées</h2>
               </div>
 
-              {formations.length > 0 ? (
-                <div className="space-y-2.5">
-                  {formations.map((form: any, idx: number) => (
-                    <div 
-                      key={idx} 
-                      className="flex items-center gap-3.5 p-3.5 bg-white rounded-xl border border-slate-200/80 shadow-2xs hover:border-primary-300 hover:shadow-xs transition-all group"
-                    >
-                      <div className="w-9 h-9 rounded-lg bg-primary-50 flex items-center justify-center shrink-0 group-hover:bg-primary-600 transition-colors">
-                        <GraduationCap className="text-primary-600 group-hover:text-white transition-colors" size={18} />
-                      </div>
-                      <span className="px-2.5 py-1 text-[11px] font-bold text-white bg-primary-600 rounded-md shrink-0 shadow-2xs uppercase tracking-wider">
-                        {form.niveau || form.badge || form.domaine || 'Reconnu par le CAMES'}
-                      </span>
-                      <span className="font-semibold text-slate-800 text-sm md:text-base group-hover:text-primary-600 transition-colors leading-snug">
-                        {form.filiere || form.nom || form.description}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <Card className="p-10 border-slate-200 bg-white rounded-2xl text-center border-dashed">
-                  <BookOpen size={48} className="mx-auto text-slate-200 mb-4" />
-                  <p className="text-slate-500 font-medium">Les détails des formations seront bientôt disponibles.</p>
-                </Card>
-              )}
+              <FormationsSection formations={formations} />
             </section>
 
           </div>
