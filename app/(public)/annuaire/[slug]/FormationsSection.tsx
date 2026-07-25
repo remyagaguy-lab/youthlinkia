@@ -1,14 +1,16 @@
 'use client'
 
 import { useState, useMemo } from 'react'
+import Link from 'next/link'
 import { Card } from '@/components/ui/Card'
-import { GraduationCap, BookOpen } from 'lucide-react'
+import { GraduationCap, BookOpen, ArrowRight } from 'lucide-react'
 
 interface FormationsSectionProps {
   formations: any[]
+  structureSlug?: string
 }
 
-export function FormationsSection({ formations }: FormationsSectionProps) {
+export function FormationsSection({ formations, structureSlug }: FormationsSectionProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('Tout')
 
   const getCategory = (form: any) => {
@@ -96,23 +98,47 @@ export function FormationsSection({ formations }: FormationsSectionProps) {
       )}
 
       {/* LISTE DES FORMATIONS / COMPOSANTES */}
-      <div className="space-y-2.5">
-        {filteredFormations.map((form: any, idx: number) => (
-          <div 
-            key={idx} 
-            className="flex items-center gap-3.5 p-3.5 bg-white rounded-xl border border-slate-200/80 shadow-2xs hover:border-primary-300 hover:shadow-xs transition-all group"
-          >
-            <div className="w-9 h-9 rounded-lg bg-primary-50 flex items-center justify-center shrink-0 group-hover:bg-primary-600 transition-colors">
-              <GraduationCap className="text-primary-600 group-hover:text-white transition-colors" size={18} />
-            </div>
-            <span className="px-2.5 py-1 text-[11px] font-bold text-white bg-primary-600 rounded-md shrink-0 shadow-2xs uppercase tracking-wider">
-              {form.niveau || form.badge || form.domaine || 'Reconnu par le CAMES'}
-            </span>
-            <span className="font-semibold text-slate-800 text-sm md:text-base group-hover:text-primary-600 transition-colors leading-snug">
-              {form.filiere || form.nom || form.description}
-            </span>
-          </div>
-        ))}
+      <div className="space-y-3">
+        {filteredFormations.map((form: any, idx: number) => {
+          const filiere = form.filiere || form.nom || form.description || 'Formation';
+          const defaultSlug = encodeURIComponent(filiere.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''));
+          const targetUrl = structureSlug ? `/annuaire/${structureSlug}/composante/${form.slug || defaultSlug}` : '#';
+          const badgeText = form.domaine || (form.niveau && form.niveau !== "Reconnu par le CAMES" ? form.niveau : null) || form.badge || getCategory(form);
+
+          return (
+            <Link 
+              key={idx} 
+              href={targetUrl}
+              className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-white rounded-2xl border border-slate-200/80 shadow-2xs hover:border-primary-500 hover:shadow-md hover:bg-slate-50/60 transition-all group cursor-pointer"
+            >
+              <div className="flex items-center gap-3.5 pr-2">
+                <div className="w-10 h-10 rounded-xl bg-primary-50 flex items-center justify-center shrink-0 group-hover:bg-primary-600 group-hover:scale-105 transition-all shadow-2xs">
+                  <GraduationCap className="text-primary-600 group-hover:text-white transition-colors" size={20} />
+                </div>
+                <div className="space-y-1">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span className="px-2.5 py-0.5 text-[10px] font-extrabold text-white bg-primary-600 rounded-md shrink-0 shadow-2xs uppercase tracking-wider">
+                      {badgeText}
+                    </span>
+                    {form.category && form.category !== badgeText && (
+                      <span className="px-2 py-0.5 text-[10px] font-bold text-slate-600 bg-slate-100 rounded-md uppercase tracking-wider">
+                        {form.category}
+                      </span>
+                    )}
+                  </div>
+                  <h4 className="font-bold text-slate-900 text-sm md:text-base group-hover:text-primary-600 transition-colors leading-snug">
+                    {filiere}
+                  </h4>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-1.5 text-xs font-bold text-primary-600 bg-primary-50 hover:bg-primary-600 hover:text-white px-3.5 py-2 rounded-xl group-hover:bg-primary-600 group-hover:text-white transition-all shrink-0 shadow-2xs self-end sm:self-center">
+                <span>Voir parcours</span>
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </div>
   )

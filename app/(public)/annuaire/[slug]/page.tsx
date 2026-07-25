@@ -374,7 +374,7 @@ export default async function StructureDetailPage({
                 <h2 className="text-2xl font-bold font-poppins text-slate-900">Formations Proposées</h2>
               </div>
 
-              <FormationsSection formations={formations} />
+              <FormationsSection formations={formations} structureSlug={structure.slug || slug} />
             </section>
 
           </div>
