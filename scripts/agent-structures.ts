@@ -69,9 +69,10 @@ Assure-toi que le JSON est valide.`
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'google/gemini-2.5-pro',
+        model: 'google/gemini-2.5-flash',
         messages: [{ role: 'user', content: prompt }],
         temperature: 0.2,
+        max_tokens: 3000,
       }),
     })
 
