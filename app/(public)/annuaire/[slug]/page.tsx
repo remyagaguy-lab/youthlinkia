@@ -188,6 +188,56 @@ export default async function StructureDetailPage({
   const galerie = structure.galerie_images || []
   const chiffres = structure.chiffres_cles || {}
 
+  // 1. Calcul des Domaines de formation
+  let domainesList: string[] = [];
+  if (structure.nom.toLowerCase().includes('lomé') || structure.slug?.includes('lome')) {
+    domainesList = [
+      "Agronomie & Environnement",
+      "Droit & Sciences Politiques",
+      "Économie & Gestion",
+      "Éducation, Communication & Sport",
+      "Lettres, Langues & Arts",
+      "Santé & Médecine",
+      "Sciences Fondamentales & Ingénierie",
+      "Sciences Humaines & Sociales"
+    ];
+  } else {
+    const domainesSet = new Set<string>();
+    if (Array.isArray(structure.domaines)) {
+      structure.domaines.forEach((d: string) => d && domainesSet.add(d.trim()));
+    }
+    formations.forEach((f: any) => {
+      if (f.domaine) {
+        f.domaine.split(',').forEach((d: string) => d.trim() && domainesSet.add(d.trim()));
+      }
+    });
+    domainesList = Array.from(domainesSet).sort();
+  }
+
+  // 2. Calcul des Diplômes proposés
+  let diplomesList: string[] = [];
+  if (structure.nom.toLowerCase().includes('lomé') || structure.slug?.includes('lome')) {
+    diplomesList = [
+      "Licence",
+      "Master",
+      "Doctorat",
+      "Diplôme d'Ingénieur",
+      "Diplôme d'État en Santé",
+      "DUT / Certificats Spécialisés"
+    ];
+  } else {
+    const diplomesSet = new Set<string>();
+    formations.forEach((f: any) => {
+      if (f.niveau && f.niveau !== "Reconnu par le CAMES" && !f.niveau.toLowerCase().includes("faculté") && !f.niveau.toLowerCase().includes("école") && !f.niveau.toLowerCase().includes("institut") && !f.niveau.toLowerCase().includes("centre")) {
+        diplomesSet.add(f.niveau.trim());
+      }
+    });
+    diplomesList = Array.from(diplomesSet).sort();
+    if (diplomesList.length === 0) {
+      diplomesList = ["Licence", "Master", "Doctorat"];
+    }
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 pb-24 font-spartan">
       
@@ -332,6 +382,36 @@ export default async function StructureDetailPage({
           {/* COLONNE DROITE (Sidebar Infos) */}
           <div className="space-y-8">
             
+            {/* DOMAINES DE FORMATION */}
+            {domainesList.length > 0 && (
+              <Card className="p-8 border-slate-200 shadow-sm rounded-3xl bg-white">
+                <h3 className="font-bold text-xl text-slate-900 font-poppins mb-4">Domaines de formation</h3>
+                <ul className="space-y-2.5 text-slate-700">
+                  {domainesList.map((dom, idx) => (
+                    <li key={idx} className="flex items-start gap-2.5 hover:text-primary-600 transition-colors">
+                      <span className="text-primary-600 font-bold mt-0.5 shrink-0">•</span>
+                      <span className="font-medium leading-snug">{dom}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            )}
+
+            {/* DIPLÔMES PROPOSÉS */}
+            {diplomesList.length > 0 && (
+              <Card className="p-8 border-slate-200 shadow-sm rounded-3xl bg-white">
+                <h3 className="font-bold text-xl text-slate-900 font-poppins mb-4">Diplômes proposés</h3>
+                <ul className="space-y-2.5 text-slate-700">
+                  {diplomesList.map((dip, idx) => (
+                    <li key={idx} className="flex items-start gap-2.5 hover:text-primary-600 transition-colors">
+                      <span className="text-cta-600 font-bold mt-0.5 shrink-0">•</span>
+                      <span className="font-medium leading-snug">{dip}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            )}
+
             {/* CHIFFRES CLÉS */}
             {Object.keys(chiffres).length > 0 && (
               <Card className="p-8 border-0 shadow-lg rounded-3xl bg-gradient-to-br from-slate-900 via-[#0A2239] to-primary-900 text-white relative overflow-hidden">
