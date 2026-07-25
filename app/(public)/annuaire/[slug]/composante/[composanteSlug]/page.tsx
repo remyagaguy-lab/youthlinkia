@@ -63,39 +63,13 @@ export default async function ComposanteDetailPage({
   
   const description = composante.description || `Bienvenue sur la page de présentation de ${nomFiliere} au sein de ${structure.nom}. Cette composante a pour vocation d'offrir des formations académiques et professionnalisantes de haut niveau, alignées sur les normes internationales du système LMD (Licence, Master, Doctorat) et répondant aux exigences du marché de l'emploi en Afrique et dans le monde.`
 
-  const licenceList = Array.isArray(composante.licence) && composante.licence.length > 0
-    ? composante.licence
-    : [
-        `Licence Fondamentale en ${domaine} (Tronc commun & spécialisation - L1, L2, L3)`,
-        `Licence Professionnelle Appliquée aux Métiers et Pratiques de Terrain`,
-        `Licence d'Innovation, Gestion de Projets et Encadrement Technique`
-      ]
+  const licenceList = Array.isArray(composante.licence) ? composante.licence : []
+  const masterList = Array.isArray(composante.master) ? composante.master : []
+  const doctoratList = Array.isArray(composante.doctorat) ? composante.doctorat : []
 
-  const masterList = Array.isArray(composante.master) && composante.master.length > 0
-    ? composante.master
-    : [
-        `Master Professionnel en Expertise, Stratégie et Management Avancé (M1 - M2)`,
-        `Master Recherche & Innovation en ${domaine}`,
-        `Master de Spécialisation et de Direction de Projets`
-      ]
+  const admissionText = composante.admission || "Les modalités d'admission (sélection sur dossier, séries de Baccalauréat requises ou épreuves de concours) sont fixées annuellement par la DAAS (Direction des Affaires Académiques et de la Scolarité) de l'Université de Lomé."
 
-  const doctoratList = Array.isArray(composante.doctorat) && composante.doctorat.length > 0
-    ? composante.doctorat
-    : [
-        `Doctorat (Ph.D) au sein de l'École Doctorale Rattachée`,
-        `Thèse de recherche fondamentale ou appliquée en partenariat avec les laboratoires d'excellence`
-      ]
-
-  const admissionText = composante.admission || "Baccalauréat toutes séries (compatibilité avec la dominante scientifique, littéraire, économique ou technique du domaine). L'admission s'effectue sur étude de dossier scolaire, sur concours d'entrée ou selon la capacité d'accueil fixée par l'établissement pour l'année universitaire."
-
-  const debouchesList = Array.isArray(composante.debouches) && composante.debouches.length > 0
-    ? composante.debouches
-    : [
-        "Cadres techniques, ingénieurs ou conseillers au sein d'entreprises publiques et privées",
-        "Experts-consultants, chefs de projets et analystes stratégiques",
-        "Carrières dans l'enseignement supérieur, la recherche scientifique et l'innovation",
-        "Fonction publique de l'État, diplomatie et organisations internationales"
-      ]
+  const debouchesList = Array.isArray(composante.debouches) ? composante.debouches : []
 
   return (
     <div className="min-h-screen bg-slate-50 pb-24 font-spartan">
@@ -182,88 +156,104 @@ export default async function ComposanteDetailPage({
               </p>
 
               {/* 1. CYCLE LICENCE */}
-              <Card className="p-8 border-slate-200 shadow-sm rounded-3xl bg-white relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-2 h-full bg-primary-600"></div>
-                <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100">
-                  <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-xl bg-primary-50 flex items-center justify-center text-primary-600 font-black text-lg shrink-0">
-                      L
+              {licenceList.length > 0 && (
+                <Card className="p-8 border-slate-200 shadow-sm rounded-3xl bg-white relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-2 h-full bg-primary-600"></div>
+                  <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100">
+                    <div className="flex items-center gap-3">
+                      <div className="w-11 h-11 rounded-xl bg-primary-50 flex items-center justify-center text-primary-600 font-black text-lg shrink-0">
+                        L
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-lg md:text-xl font-poppins text-slate-900">Niveau Licence (1er Cycle)</h3>
+                        <p className="text-xs text-slate-500">Durée d'études : 3 ans (6 semestres - 180 crédits ECTS)</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-bold text-lg md:text-xl font-poppins text-slate-900">Niveau Licence (1er Cycle)</h3>
-                      <p className="text-xs text-slate-500">Durée d'études : 3 ans (6 semestres - 180 crédits ECTS)</p>
-                    </div>
+                    <span className="px-3 py-1 rounded-full bg-primary-50 text-primary-700 font-extrabold text-xs">
+                      Bac + 3
+                    </span>
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-primary-50 text-primary-700 font-extrabold text-xs">
-                    Bac + 3
-                  </span>
-                </div>
-                
-                <ul className="space-y-3.5">
-                  {licenceList.map((prog: string, idx: number) => (
-                    <li key={idx} className="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50/70 border border-slate-100 hover:bg-primary-50/40 hover:border-primary-200 transition-colors">
-                      <CheckCircle2 className="text-primary-600 shrink-0 mt-0.5" size={18} />
-                      <span className="font-semibold text-slate-800 text-sm md:text-base leading-snug">{prog}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Card>
+                  
+                  <ul className="space-y-3.5">
+                    {licenceList.map((prog: string, idx: number) => (
+                      <li key={idx} className="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50/70 border border-slate-100 hover:bg-primary-50/40 hover:border-primary-200 transition-colors">
+                        <CheckCircle2 className="text-primary-600 shrink-0 mt-0.5" size={18} />
+                        <span className="font-semibold text-slate-800 text-sm md:text-base leading-snug">{prog}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              )}
 
               {/* 2. CYCLE MASTER */}
-              <Card className="p-8 border-slate-200 shadow-sm rounded-3xl bg-white relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-2 h-full bg-cta-600"></div>
-                <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100">
-                  <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-xl bg-cta-50 flex items-center justify-center text-cta-600 font-black text-lg shrink-0">
-                      M
+              {masterList.length > 0 && (
+                <Card className="p-8 border-slate-200 shadow-sm rounded-3xl bg-white relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-2 h-full bg-cta-600"></div>
+                  <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100">
+                    <div className="flex items-center gap-3">
+                      <div className="w-11 h-11 rounded-xl bg-cta-50 flex items-center justify-center text-cta-600 font-black text-lg shrink-0">
+                        M
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-lg md:text-xl font-poppins text-slate-900">Niveau Master & Ingénierie (2nd Cycle)</h3>
+                        <p className="text-xs text-slate-500">Durée d'études : 2 ans après la Licence (4 semestres - 120 crédits ECTS)</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-bold text-lg md:text-xl font-poppins text-slate-900">Niveau Master & Ingénierie (2nd Cycle)</h3>
-                      <p className="text-xs text-slate-500">Durée d'études : 2 ans après la Licence (4 semestres - 120 crédits ECTS)</p>
-                    </div>
+                    <span className="px-3 py-1 rounded-full bg-cta-50 text-cta-700 font-extrabold text-xs">
+                      Bac + 5
+                    </span>
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-cta-50 text-cta-700 font-extrabold text-xs">
-                    Bac + 5
-                  </span>
-                </div>
-                
-                <ul className="space-y-3.5">
-                  {masterList.map((prog: string, idx: number) => (
-                    <li key={idx} className="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50/70 border border-slate-100 hover:bg-cta-50/40 hover:border-cta-200 transition-colors">
-                      <CheckCircle2 className="text-cta-600 shrink-0 mt-0.5" size={18} />
-                      <span className="font-semibold text-slate-800 text-sm md:text-base leading-snug">{prog}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Card>
+                  
+                  <ul className="space-y-3.5">
+                    {masterList.map((prog: string, idx: number) => (
+                      <li key={idx} className="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50/70 border border-slate-100 hover:bg-cta-50/40 hover:border-cta-200 transition-colors">
+                        <CheckCircle2 className="text-cta-600 shrink-0 mt-0.5" size={18} />
+                        <span className="font-semibold text-slate-800 text-sm md:text-base leading-snug">{prog}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              )}
 
               {/* 3. CYCLE DOCTORAT */}
-              <Card className="p-8 border-slate-200 shadow-sm rounded-3xl bg-white relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-2 h-full bg-purple-600"></div>
-                <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100">
-                  <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 font-black text-lg shrink-0">
-                      D
+              {doctoratList.length > 0 && (
+                <Card className="p-8 border-slate-200 shadow-sm rounded-3xl bg-white relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-2 h-full bg-purple-600"></div>
+                  <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100">
+                    <div className="flex items-center gap-3">
+                      <div className="w-11 h-11 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600 font-black text-lg shrink-0">
+                        D
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-lg md:text-xl font-poppins text-slate-900">Niveau Doctorat & Recherche (3ème Cycle)</h3>
+                        <p className="text-xs text-slate-500">Recherche approfondie en laboratoire, rédaction de thèse et innovation</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-bold text-lg md:text-xl font-poppins text-slate-900">Niveau Doctorat & Recherche (3ème Cycle)</h3>
-                      <p className="text-xs text-slate-500">Recherche approfondie en laboratoire, rédaction de thèse et innovation</p>
-                    </div>
+                    <span className="px-3 py-1 rounded-full bg-purple-50 text-purple-700 font-extrabold text-xs">
+                      Bac + 8
+                    </span>
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-purple-50 text-purple-700 font-extrabold text-xs">
-                    Bac + 8
-                  </span>
-                </div>
-                
-                <ul className="space-y-3.5">
-                  {doctoratList.map((prog: string, idx: number) => (
-                    <li key={idx} className="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50/70 border border-slate-100 hover:bg-purple-50/40 hover:border-purple-200 transition-colors">
-                      <Sparkles className="text-purple-600 shrink-0 mt-0.5" size={18} />
-                      <span className="font-semibold text-slate-800 text-sm md:text-base leading-snug">{prog}</span>
-                    </li>
-                  ))}
-                </ul>
-              </Card>
+                  
+                  <ul className="space-y-3.5">
+                    {doctoratList.map((prog: string, idx: number) => (
+                      <li key={idx} className="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50/70 border border-slate-100 hover:bg-purple-50/40 hover:border-purple-200 transition-colors">
+                        <Sparkles className="text-purple-600 shrink-0 mt-0.5" size={18} />
+                        <span className="font-semibold text-slate-800 text-sm md:text-base leading-snug">{prog}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </Card>
+              )}
+
+              {licenceList.length === 0 && masterList.length === 0 && doctoratList.length === 0 && (
+                <Card className="p-8 border-slate-200 shadow-sm rounded-3xl bg-white text-center">
+                  <Clock className="mx-auto text-primary-500 mb-4" size={40} />
+                  <h3 className="font-bold text-lg text-slate-900 font-poppins mb-2">Parcours en cours d'intégration officielle</h3>
+                  <p className="text-sm text-slate-600 max-w-lg mx-auto leading-relaxed">
+                    Les parcours détaillés pour les cycles Licence, Master et Doctorat de cette composante sont actuellement en cours d'intégration depuis les sources officielles de la DAAS (Direction des Affaires Académiques et de la Scolarité) de l'Université de Lomé.
+                  </p>
+                </Card>
+              )}
 
             </div>
 
@@ -295,25 +285,27 @@ export default async function ComposanteDetailPage({
             </Card>
 
             {/* CARTE DÉBOUCHÉS */}
-            <Card className="p-8 border-slate-200 shadow-sm rounded-3xl bg-white">
-              <div className="flex items-center gap-3 mb-6 pb-3 border-b border-slate-100">
-                <div className="w-10 h-10 rounded-xl bg-cta-50 flex items-center justify-center text-cta-600 shrink-0">
-                  <Briefcase size={20} />
+            {debouchesList.length > 0 && (
+              <Card className="p-8 border-slate-200 shadow-sm rounded-3xl bg-white">
+                <div className="flex items-center gap-3 mb-6 pb-3 border-b border-slate-100">
+                  <div className="w-10 h-10 rounded-xl bg-cta-50 flex items-center justify-center text-cta-600 shrink-0">
+                    <Briefcase size={20} />
+                  </div>
+                  <h3 className="font-bold text-lg text-slate-900 font-poppins">Débouchés & Carrières</h3>
                 </div>
-                <h3 className="font-bold text-lg text-slate-900 font-poppins">Débouchés & Carrières</h3>
-              </div>
-              <p className="text-xs text-slate-500 mb-4">
-                Les diplômés de cette composante s'insèrent avec succès dans les secteurs suivants :
-              </p>
-              <ul className="space-y-2.5">
-                {debouchesList.map((deb: string, idx: number) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-sm text-slate-700 font-medium">
-                    <span className="text-cta-500 font-bold mt-0.5 shrink-0">✓</span>
-                    <span className="leading-snug">{deb}</span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
+                <p className="text-xs text-slate-500 mb-4">
+                  Les diplômés de cette composante s'insèrent avec succès dans les secteurs suivants :
+                </p>
+                <ul className="space-y-2.5">
+                  {debouchesList.map((deb: string, idx: number) => (
+                    <li key={idx} className="flex items-start gap-2.5 text-sm text-slate-700 font-medium">
+                      <span className="text-cta-500 font-bold mt-0.5 shrink-0">✓</span>
+                      <span className="leading-snug">{deb}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            )}
 
             {/* CARTE ACTION / LIEN PRINCIPAL */}
             <Card className="p-8 border-0 shadow-lg rounded-3xl bg-gradient-to-br from-primary-900 via-slate-900 to-[#0A2239] text-white text-center">
