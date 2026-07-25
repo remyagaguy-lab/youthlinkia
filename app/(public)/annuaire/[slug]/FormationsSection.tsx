@@ -69,7 +69,7 @@ export function FormationsSection({ formations }: FormationsSectionProps) {
     <div>
       {/* BOUTONS DE FILTRE */}
       {availableCategories.length > 1 && (
-        <div className="flex flex-wrap items-center gap-2.5 mb-6">
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2 mb-6 whitespace-nowrap">
           {availableCategories.map((cat) => {
             const isSelected = selectedCategory === cat;
             const count = cat === "Tout" ? formations.length : formations.filter(f => getCategory(f) === cat).length;
@@ -77,7 +77,7 @@ export function FormationsSection({ formations }: FormationsSectionProps) {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer ${
+                className={`px-3.5 py-2 rounded-xl text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer shrink-0 whitespace-nowrap ${
                   isSelected 
                     ? 'bg-primary-600 text-white font-bold shadow-md shadow-primary-600/20 scale-[1.02]' 
                     : 'bg-white text-slate-700 border border-slate-200/80 hover:border-slate-300 hover:bg-slate-50 font-semibold'
