@@ -159,14 +159,6 @@ export default async function StructureDetailPage({
             <a href="#formations" className="py-4 text-sm font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent hover:border-slate-300 whitespace-nowrap transition-colors">
               Formations
             </a>
-            <a href="#admission" className="py-4 text-sm font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent hover:border-slate-300 whitespace-nowrap transition-colors">
-              Admission & Frais
-            </a>
-            {galerie.length > 0 && (
-              <a href="#campus" className="py-4 text-sm font-bold text-slate-500 hover:text-slate-800 border-b-2 border-transparent hover:border-slate-300 whitespace-nowrap transition-colors">
-                Le Campus
-              </a>
-            )}
           </div>
 
         </div>
@@ -226,55 +218,6 @@ export default async function StructureDetailPage({
                 </Card>
               )}
             </section>
-
-            {/* ADMISSION ET FRAIS */}
-            <section id="admission" className="scroll-mt-32">
-              <div className="flex items-center gap-3 mb-6">
-                <CheckCircle2 className="text-teal-600" size={28} />
-                <h2 className="text-2xl font-bold font-poppins text-slate-900">Admission & Scolarité</h2>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card className="p-8 border-slate-200 shadow-sm rounded-2xl bg-white">
-                  <h3 className="font-bold text-slate-900 mb-5 flex items-center gap-3 text-lg">
-                    <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center">
-                      <CheckCircle2 className="text-teal-600" size={20} />
-                    </div>
-                    Conditions
-                  </h3>
-                  <div className="text-slate-600 leading-relaxed whitespace-pre-wrap">
-                    {structure.conditions_admission || "Sur étude de dossier et/ou concours. Veuillez contacter l'établissement pour plus de détails."}
-                  </div>
-                </Card>
-
-                <Card className="p-8 border-slate-200 shadow-sm rounded-2xl bg-white">
-                  <h3 className="font-bold text-slate-900 mb-5 flex items-center gap-3 text-lg">
-                    <div className="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center">
-                      <Wallet className="text-orange-600" size={20} /> 
-                    </div>
-                    Frais
-                  </h3>
-                  <div className="text-slate-600 leading-relaxed whitespace-pre-wrap">
-                    {structure.frais_scolarite || "Les frais de scolarité ne sont pas communiqués publiquement."}
-                  </div>
-                </Card>
-              </div>
-            </section>
-
-            {/* GALERIE (si dispo) */}
-            {galerie.length > 0 && (
-              <section id="campus" className="scroll-mt-32">
-                <div className="flex items-center gap-3 mb-6">
-                  <ImageIcon className="text-purple-600" size={28} />
-                  <h2 className="text-2xl font-bold font-poppins text-slate-900">Le Campus</h2>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {galerie.map((url: string, i: number) => (
-                    <img key={i} src={url} alt={`Campus ${i+1}`} className="w-full h-56 object-cover rounded-2xl shadow-sm hover:opacity-90 transition-opacity cursor-pointer border border-slate-200" />
-                  ))}
-                </div>
-              </section>
-            )}
 
           </div>
 
