@@ -60,6 +60,73 @@ function getSocialIcon(reseau: string) {
   return <Share2 className="text-primary-600" size={18} />;
 }
 
+function formatMarkdownToHtml(text: string) {
+  if (!text) return '';
+  
+  const lines = text.split(/\r?\n/);
+  let html = '';
+  let inList = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    let line = lines[i].trim();
+    if (!line) {
+      if (inList) {
+        html += '</ul>';
+        inList = false;
+      }
+      continue;
+    }
+
+    // Headers
+    if (line.startsWith('### ') || line.startsWith('#### ') || line.startsWith('##### ')) {
+      if (inList) { html += '</ul>'; inList = false; }
+      const title = line.replace(/^#{3,5}\s+/, '');
+      html += `<h3 class="text-lg md:text-xl font-bold font-poppins text-slate-900 mt-8 mb-3 flex items-center gap-2.5"><span class="w-2.5 h-2.5 rounded-full bg-primary-600 inline-block shrink-0"></span><span>${title}</span></h3>`;
+      continue;
+    }
+    if (line.startsWith('## ')) {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += `<h2 class="text-xl md:text-2xl font-bold font-poppins text-slate-900 mt-8 mb-4 border-b border-slate-200 pb-2.5">${line.substring(3)}</h2>`;
+      continue;
+    }
+    if (line.startsWith('# ')) {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += `<h2 class="text-xl md:text-2xl font-bold font-poppins text-slate-900 mt-8 mb-4 border-b border-slate-200 pb-2.5">${line.substring(2)}</h2>`;
+      continue;
+    }
+
+    // Lists
+    if (line.startsWith('* ') || line.startsWith('- ')) {
+      if (!inList) {
+        html += '<ul class="space-y-2.5 my-4 text-slate-700 pl-2">';
+        inList = true;
+      }
+      let item = line.substring(2);
+      item = item.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-slate-900">$1</strong>');
+      item = item.replace(/\*(.*?)\*/g, '<em class="italic">$1</em>');
+      html += `<li class="flex items-start gap-2.5 leading-relaxed"><span class="text-primary-600 font-bold mt-1 shrink-0">•</span><span>${item}</span></li>`;
+      continue;
+    }
+
+    if (inList) {
+      html += '</ul>';
+      inList = false;
+    }
+
+    // Normal paragraph
+    let p = line;
+    p = p.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-slate-900">$1</strong>');
+    p = p.replace(/\*(.*?)\*/g, '<em class="italic">$1</em>');
+    html += `<p class="mb-4 leading-relaxed text-slate-700">${p}</p>`;
+  }
+
+  if (inList) {
+    html += '</ul>';
+  }
+
+  return html;
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const supabase = await createClient()
@@ -239,7 +306,7 @@ export default async function StructureDetailPage({
               <Card className="p-8 border-slate-200 shadow-sm rounded-2xl bg-white">
                 <div className="prose prose-slate prose-lg max-w-none prose-headings:font-poppins prose-a:text-primary-600 leading-relaxed text-slate-700">
                   {structure.description_detaillee ? (
-                    <div dangerouslySetInnerHTML={{ __html: structure.description_detaillee.replace(/\n/g, '<br/>') }} />
+                    <div dangerouslySetInnerHTML={{ __html: formatMarkdownToHtml(structure.description_detaillee) }} />
                   ) : (
                     <>
                       <p className="font-medium mb-4">{structure.mission}</p>
