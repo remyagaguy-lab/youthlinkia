@@ -12,13 +12,27 @@ import {
   BookOpen, 
   GraduationCap, 
   Users, 
-  CheckCircle2, 
-  Wallet,
   Building,
-  Image as ImageIcon
+  Facebook,
+  Linkedin,
+  Twitter,
+  Instagram,
+  Youtube,
+  Share2,
+  ArrowRight
 } from 'lucide-react'
 
 export const revalidate = 3600 // Revalidate cache every hour (ISR)
+
+function getSocialIcon(reseau: string) {
+  const n = reseau.toLowerCase();
+  if (n.includes('facebook')) return <Facebook className="text-[#1877F2]" size={18} />;
+  if (n.includes('linkedin')) return <Linkedin className="text-[#0A66C2]" size={18} />;
+  if (n.includes('twitter') || n.includes('x')) return <Twitter className="text-[#1DA1F2]" size={18} />;
+  if (n.includes('instagram')) return <Instagram className="text-[#E4405F]" size={18} />;
+  if (n.includes('youtube')) return <Youtube className="text-[#FF0000]" size={18} />;
+  return <Share2 className="text-primary-600" size={18} />;
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
@@ -54,6 +68,25 @@ export default async function StructureDetailPage({
 
   if (!structure) {
     notFound()
+  }
+
+  // Fetch 3 similar structures
+  let { data: similarStructures } = await supabase
+    .from('structures')
+    .select('id, nom, slug, type, logo_url, mission, site_web_officiel, lien')
+    .eq('statut', 'publiee')
+    .neq('id', structure.id)
+    .eq('type', structure.type)
+    .limit(3)
+
+  if (!similarStructures || similarStructures.length < 3) {
+    const { data: moreStructures } = await supabase
+      .from('structures')
+      .select('id, nom, slug, type, logo_url, mission, site_web_officiel, lien')
+      .eq('statut', 'publiee')
+      .neq('id', structure.id)
+      .limit(3)
+    similarStructures = moreStructures || []
   }
 
   // Fallbacks if new fields are empty
@@ -288,7 +321,7 @@ export default async function StructureDetailPage({
                   return (
                     <li key={reseau} className="flex items-start gap-4">
                       <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center shrink-0">
-                        <Globe className="text-primary-600" size={18} />
+                        {getSocialIcon(reseau)}
                       </div>
                       <a href={String(url)} target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700 font-medium mt-2 break-all underline-offset-4 hover:underline capitalize">
                         Page {reseau}
@@ -301,28 +334,90 @@ export default async function StructureDetailPage({
                     <MapPin className="text-primary-600" size={18} />
                   </div>
                   <span className="text-slate-700 font-medium mt-2">
-                    {structure.pays_intervention.join(', ')}
+                    {structure.pays_intervention?.join(', ') || 'Togo'}
                   </span>
                 </li>
               </ul>
-            </Card>
-
-            {/* SECTEURS / MOTS CLÉS */}
-            <Card className="p-8 border-slate-200 shadow-sm rounded-3xl bg-white">
-              <h3 className="font-bold text-xl text-slate-900 font-poppins mb-6">Secteurs d'Activité</h3>
-              <div className="flex flex-wrap gap-2">
-                {structure.secteurs?.map((s: string) => (
-                  <span key={s} className="text-sm font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-xl transition-colors cursor-default">
-                    {s}
-                  </span>
-                ))}
-              </div>
             </Card>
 
           </div>
 
         </div>
       </div>
+
+      {/* SECTION DÉCOUVRIR D'AUTRES ÉTABLISSEMENTS */}
+      {similarStructures && similarStructures.length > 0 && (
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
+          <div className="border-t border-slate-200 pt-16">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold font-poppins text-slate-900">
+                  Découvrir d'autres établissements
+                </h2>
+                <p className="text-slate-500 mt-1">
+                  Explorez d'autres opportunités de formation et d'accompagnement
+                </p>
+              </div>
+              <Link href="/annuaire">
+                <Button variant="outline" className="w-full sm:w-auto rounded-xl font-bold border-slate-300 hover:bg-slate-100">
+                  Voir tout l'annuaire
+                </Button>
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {similarStructures.map((item: any) => {
+                const website = item.site_web_officiel || item.lien;
+                let fallbackLogoUrl = item.logo_url;
+                if (!fallbackLogoUrl && website) {
+                  try {
+                    const url = new URL(website.startsWith('http') ? website : `https://${website}`);
+                    fallbackLogoUrl = `https://logo.clearbit.com/${url.hostname}`;
+                  } catch (e) {}
+                }
+
+                return (
+                  <Link 
+                    key={item.id} 
+                    href={`/annuaire/${item.slug}`}
+                    className="group block h-full"
+                  >
+                    <Card className="p-6 border-slate-200 shadow-sm rounded-2xl bg-white hover:shadow-lg hover:border-primary-200 transition-all h-full flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-start gap-4 mb-4">
+                          <LogoImage 
+                            src={fallbackLogoUrl} 
+                            website={website}
+                            alt={item.nom} 
+                            fallbackLetter={item.nom}
+                            containerClassName="w-14 h-14 rounded-xl shadow-sm border border-slate-100 p-2 text-xl shrink-0"
+                            className="w-full h-full"
+                          />
+                          <div>
+                            <span className="inline-block px-2.5 py-1 mb-1.5 text-[10px] font-bold uppercase tracking-wider text-primary-600 bg-primary-50 rounded-full">
+                              {item.type?.replace(/_/g, ' ')}
+                            </span>
+                            <h3 className="font-bold font-poppins text-slate-900 text-base line-clamp-2 group-hover:text-primary-600 transition-colors leading-snug">
+                              {item.nom}
+                            </h3>
+                          </div>
+                        </div>
+                        <p className="text-xs text-slate-500 line-clamp-3 leading-relaxed">
+                          {item.mission}
+                        </p>
+                      </div>
+                      <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-primary-600 group-hover:text-primary-700">
+                        <span>En savoir plus</span>
+                        <ArrowRight size={16} className="transform group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </Card>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
