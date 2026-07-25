@@ -348,12 +348,12 @@ export default async function StructureDetailPage({
             
             {/* PRÉSENTATION */}
             <section id="presentation" className="scroll-mt-32">
-              <div className="flex items-center gap-3 mb-6">
-                <Building className="text-primary-600" size={28} />
-                <h2 className="text-2xl font-bold font-poppins text-slate-900">À propos de l'établissement</h2>
-              </div>
-              
-              <Card className="p-8 border-slate-200 shadow-sm rounded-2xl bg-white">
+              <Card className="p-8 border-slate-200 shadow-sm rounded-3xl bg-white">
+                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
+                  <Building className="text-primary-600" size={26} />
+                  <h2 className="text-xl md:text-2xl font-bold font-poppins text-slate-900">À propos de l'établissement</h2>
+                </div>
+                
                 <div className="prose prose-slate prose-lg max-w-none prose-headings:font-poppins prose-a:text-primary-600 leading-relaxed text-slate-700">
                   {structure.description_detaillee ? (
                     <div dangerouslySetInnerHTML={{ __html: formatMarkdownToHtml(structure.description_detaillee) }} />
